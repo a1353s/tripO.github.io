@@ -45,10 +45,12 @@
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
+  z-index: 0;
 }
 .bg-media-overlay {
   position: absolute;
   inset: 0;
+  z-index: 1;
   background:
     linear-gradient(180deg, rgba(240, 247, 246, 0.55) 0%, rgba(240, 247, 246, 0.72) 45%, rgba(240, 247, 246, 0.82) 100%),
     radial-gradient(ellipse at 20% 0%, rgba(13, 148, 136, 0.08) 0%, transparent 50%),
