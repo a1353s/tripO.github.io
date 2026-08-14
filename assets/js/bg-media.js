@@ -35,7 +35,7 @@
 
   /**
    * Switch full-page background to a location key.
-   * Uses ~3s looping WebP — never opens a video player.
+   * Clear old motion → show still instantly → load looping WebP.
    * Same key does not restart.
    */
   function setBackgroundLocation(key) {
@@ -47,21 +47,20 @@
     var still = pathFor(key, 'jpg');
     var motion = pathFor(key, 'webp');
 
-    // Instant still while motion asset loads
+    // 1) Clear old motion frame
+    img.style.visibility = 'hidden';
+    img.removeAttribute('src');
+
+    // 2) Instant still
     root.style.backgroundImage = 'url("' + still + '")';
     root.style.backgroundSize = 'cover';
     root.style.backgroundPosition = 'center';
 
     if (reduceMotion) {
-      img.removeAttribute('src');
-      img.style.visibility = 'hidden';
       return;
     }
 
-    // Drop previous motion frame immediately so day switches are visible
-    img.style.visibility = 'hidden';
-    img.removeAttribute('src');
-
+    // 3) Load new motion on top of still
     img.onload = function () {
       if (token !== loadToken) return;
       img.style.visibility = 'visible';
