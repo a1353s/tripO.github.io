@@ -247,15 +247,17 @@
   });
 })();
 
-// === Shared checklist (JSON storage + local fallback) ===
+// === Shared checklist (cloud JSON via keyvalue API + local fallback) ===
 (function() {
   var checkboxes = document.querySelectorAll('#checklist input[type="checkbox"]');
   var progressBar = document.getElementById('progressBar');
   var progressText = document.getElementById('progressText');
   var syncEl = document.getElementById('checklistSync');
   var LOCAL_KEY = 'guilin-beihai-checklist';
-  // Free public JSON bin (extendsclass). Anyone with the page URL can read/write.
-  var REMOTE_URL = 'https://extendsclass.com/api/json-storage/bin/fcadcef';
+  // Public KV store. POST is a "simple" CORS request (PUT is not — browsers preflight).
+  var KV_NS = 'tripo-gblh';
+  var KV_KEY = 'checklist';
+  var KV_BASE = 'https://keyvalue.immanuel.co/api/KeyVal';
   var POLL_MS = 4000;
   var SAVE_DEBOUNCE_MS = 350;
 
@@ -311,36 +313,72 @@
     if (progressText) progressText.textContent = checked + ' / ' + total;
   }
 
+  function toB64(str) {
+    try {
+      return btoa(unescape(encodeURIComponent(str)));
+    } catch (e) {
+      return btoa(str);
+    }
+  }
+
+  function fromB64(b64) {
+    try {
+      return decodeURIComponent(escape(atob(b64)));
+    } catch (e) {
+      return atob(b64);
+    }
+  }
+
+  function parseRemotePayload(raw) {
+    if (raw == null || raw === '') return { v: 1, items: {}, updatedAt: 0 };
+    var text = raw;
+    if (typeof raw !== 'string') {
+      try { text = JSON.stringify(raw); } catch (e) { return { v: 1, items: {}, updatedAt: 0 }; }
+    }
+    // Stored as base64 JSON string
+    try {
+      var decoded = fromB64(text);
+      var data = JSON.parse(decoded);
+      if (data && typeof data === 'object') return data;
+    } catch (e) {}
+    // Fallback: plain JSON
+    try {
+      var plain = JSON.parse(text);
+      if (plain && typeof plain === 'object') return plain;
+    } catch (e2) {}
+    return { v: 1, items: {}, updatedAt: 0 };
+  }
+
   function fetchRemote() {
-    // Cache-bust: CDN may cache GET for hours
-    return fetch(REMOTE_URL + '?_=' + Date.now(), {
+    return fetch(KV_BASE + '/GetValue/' + encodeURIComponent(KV_NS) + '/' + encodeURIComponent(KV_KEY) + '?_=' + Date.now(), {
       method: 'GET',
-      cache: 'no-store'
+      cache: 'no-store',
+      credentials: 'omit'
     }).then(function(res) {
       if (!res.ok) throw new Error('HTTP ' + res.status);
       return res.json();
     }).then(function(data) {
-      // API may wrap payload as string
-      if (typeof data === 'string') {
-        try { data = JSON.parse(data); } catch (e) { data = {}; }
-      }
-      if (data && typeof data.data === 'string') {
-        try { data = JSON.parse(data.data); } catch (e) {}
-      }
-      return data || {};
+      // API returns a JSON string (base64) or empty string
+      return parseRemotePayload(data);
     });
   }
 
   function putRemote(payload) {
-    // text/plain avoids CORS preflight issues on this host
-    return fetch(REMOTE_URL, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify(payload),
-      cache: 'no-store'
+    var b64 = toB64(JSON.stringify(payload));
+    var url = KV_BASE + '/UpdateValue/' +
+      encodeURIComponent(KV_NS) + '/' +
+      encodeURIComponent(KV_KEY) + '/' +
+      encodeURIComponent(b64);
+    // POST + no custom content-type → simple request, skips broken preflights
+    return fetch(url, {
+      method: 'POST',
+      cache: 'no-store',
+      credentials: 'omit'
     }).then(function(res) {
       if (!res.ok) throw new Error('HTTP ' + res.status);
-      return res.text();
+      return res.json();
+    }).then(function(ok) {
+      if (ok !== true && ok !== 'true') throw new Error('update rejected');
     });
   }
 
@@ -379,7 +417,6 @@
     var dirtySnapshot = dirtyIds;
     dirtyIds = {};
 
-    // Merge: only overlay locally changed keys onto latest remote
     fetchRemote().then(function(data) {
       var remoteItems = (data && data.items && typeof data.items === 'object')
         ? Object.assign({}, data.items)
@@ -399,7 +436,6 @@
         setSync('已同步（共享）', 'ok');
       });
     }).catch(function() {
-      // Restore dirty flags so a later retry can flush
       Object.keys(dirtySnapshot).forEach(function(id) { dirtyIds[id] = true; });
       try { localStorage.setItem(LOCAL_KEY, JSON.stringify(localItems)); } catch (e) {}
       setSync('保存失败，已暂存本机', 'err');
@@ -435,7 +471,6 @@
     scheduleSave();
   };
 
-  // Init: prefer shared cloud state
   setSync('同步中…', 'pending');
   pullRemote(true).then(function() {
     setInterval(function() {
