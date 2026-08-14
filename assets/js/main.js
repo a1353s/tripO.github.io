@@ -263,11 +263,20 @@
   var applyingRemote = false;
   var lastRemoteUpdatedAt = 0;
   var pendingSave = false;
+  var dirtyIds = {};
 
   function setSync(text, cls) {
     if (!syncEl) return;
     syncEl.textContent = text;
     syncEl.className = 'checklist-sync' + (cls ? ' ' + cls : '');
+  }
+
+  function markDirty(id) {
+    if (id) dirtyIds[id] = true;
+  }
+
+  function markAllDirty() {
+    checkboxes.forEach(function(cb) { dirtyIds[cb.id] = true; });
   }
 
   function collectState() {
@@ -367,40 +376,31 @@
     setSync('保存中…', 'pending');
 
     var localItems = collectState();
-    // Merge with latest remote so concurrent toggles are less likely to clobber
+    var dirtySnapshot = dirtyIds;
+    dirtyIds = {};
+
+    // Merge: only overlay locally changed keys onto latest remote
     fetchRemote().then(function(data) {
       var remoteItems = (data && data.items && typeof data.items === 'object')
-        ? data.items
+        ? Object.assign({}, data.items)
         : {};
-      var merged = {};
-      checkboxes.forEach(function(cb) {
-        var id = cb.id;
-        if (Object.prototype.hasOwnProperty.call(localItems, id)) {
-          merged[id] = localItems[id];
-        } else if (Object.prototype.hasOwnProperty.call(remoteItems, id)) {
-          merged[id] = remoteItems[id];
-        } else {
-          merged[id] = false;
-        }
-      });
-      // Keep unknown remote keys too
-      Object.keys(remoteItems).forEach(function(k) {
-        if (!Object.prototype.hasOwnProperty.call(merged, k)) {
-          merged[k] = remoteItems[k];
-        }
+      Object.keys(dirtySnapshot).forEach(function(id) {
+        remoteItems[id] = !!localItems[id];
       });
 
       var payload = {
         v: 1,
-        items: merged,
+        items: remoteItems,
         updatedAt: Date.now()
       };
       return putRemote(payload).then(function() {
         lastRemoteUpdatedAt = payload.updatedAt;
-        applyState(merged);
+        applyState(remoteItems);
         setSync('已同步（共享）', 'ok');
       });
     }).catch(function() {
+      // Restore dirty flags so a later retry can flush
+      Object.keys(dirtySnapshot).forEach(function(id) { dirtyIds[id] = true; });
       try { localStorage.setItem(LOCAL_KEY, JSON.stringify(localItems)); } catch (e) {}
       setSync('保存失败，已暂存本机', 'err');
     }).then(function() {
@@ -417,16 +417,21 @@
   }
 
   checkboxes.forEach(function(cb) {
-    cb.addEventListener('change', scheduleSave);
+    cb.addEventListener('change', function() {
+      markDirty(cb.id);
+      scheduleSave();
+    });
   });
 
   window.checkAll = function(state) {
     checkboxes.forEach(function(cb) { cb.checked = !!state; });
+    markAllDirty();
     scheduleSave();
   };
 
   window.resetChecklist = function() {
     checkboxes.forEach(function(cb) { cb.checked = false; });
+    markAllDirty();
     scheduleSave();
   };
 
@@ -435,6 +440,7 @@
   pullRemote(true).then(function() {
     setInterval(function() {
       if (pendingSave || document.hidden) return;
+      if (Object.keys(dirtyIds).length) return;
       fetchRemote().then(function(data) {
         var updatedAt = Number(data && data.updatedAt) || 0;
         if (updatedAt && updatedAt > lastRemoteUpdatedAt) {
