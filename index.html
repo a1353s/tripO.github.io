@@ -14,11 +14,76 @@
       }
     })();
   </script>
+  <script>
+    // App version gate: bump this string whenever a hard refresh of assets is required.
+    // Same version → keep cache. Changed version → clear Cache Storage and reload once.
+    window.TRIPO_APP_VERSION = '20260814e';
+    (function () {
+      var APP_VERSION = window.TRIPO_APP_VERSION;
+      var KEY = 'tripo-app-version';
+      var FLAG = 'tripo-cache-busting';
+
+      function read(key, store) {
+        try { return store.getItem(key); } catch (e) { return null; }
+      }
+      function write(key, val, store) {
+        try { store.setItem(key, val); } catch (e) {}
+      }
+      function remove(key, store) {
+        try { store.removeItem(key); } catch (e) {}
+      }
+
+      function clearCacheStorage() {
+        if (!window.caches || !caches.keys) return Promise.resolve();
+        return caches.keys().then(function (keys) {
+          return Promise.all(keys.map(function (k) { return caches.delete(k); }));
+        }).catch(function () {});
+      }
+
+      function reloadFresh() {
+        var u = new URL(location.href);
+        u.searchParams.set('_v', APP_VERSION);
+        u.searchParams.set('_r', String(Date.now()));
+        location.replace(u.pathname + u.search + u.hash);
+      }
+
+      function bustAndReload() {
+        write(KEY, APP_VERSION, localStorage);
+        return clearCacheStorage().then(function () {
+          reloadFresh();
+        }, function () {
+          reloadFresh();
+        });
+      }
+
+      // Manual: always clear Cache Storage and re-render
+      window.tripORefreshCache = function () {
+        remove(FLAG, sessionStorage);
+        write(FLAG, APP_VERSION, sessionStorage);
+        return bustAndReload();
+      };
+
+      var prev = read(KEY, localStorage);
+      if (prev === APP_VERSION) {
+        remove(FLAG, sessionStorage);
+        return;
+      }
+
+      // Version changed (or first run of versioning) → clear once, then reload
+      if (read(FLAG, sessionStorage) === APP_VERSION) {
+        // Already mid-bust for this version; avoid loops
+        write(KEY, APP_VERSION, localStorage);
+        return;
+      }
+      write(FLAG, APP_VERSION, sessionStorage);
+      bustAndReload();
+    })();
+  </script>
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
         crossorigin=""/>
-  <link rel="stylesheet" href="assets/css/style.css?v=20260814d">
+  <link rel="stylesheet" href="assets/css/style.css?v=20260814e">
 </head>
 <body>
   <div class="bg-media" id="bgMedia" aria-hidden="true">
@@ -587,7 +652,8 @@
       </div>
 
       <div class="checklist-controls">
-        <button class="checklist-btn" onclick="resetChecklist()">🔄 重置</button>
+        <button class="checklist-btn" type="button" onclick="resetChecklist()">🔄 重置</button>
+        <button class="checklist-btn" type="button" onclick="tripORefreshCache()" title="清空站点缓存并重新加载">刷缓存</button>
         <span class="checklist-sync" id="checklistSync" title="勾选会同步给所有打开此页面的人">同步中…</span>
       </div>
 
@@ -884,8 +950,8 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
           integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
           crossorigin=""></script>
-  <script src="assets/js/bg-media.js?v=20260814d"></script>
-  <script src="assets/js/main.js?v=20260814d"></script>
+  <script src="assets/js/bg-media.js?v=20260814e"></script>
+  <script src="assets/js/main.js?v=20260814e"></script>
 
   <!-- Floating Table of Contents -->
   <div class="floating-toc" id="floatingToc">
