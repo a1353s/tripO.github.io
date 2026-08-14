@@ -29,6 +29,28 @@
     reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   } catch (e) {}
 
+  // Keep fixed layer aligned to the *visual* viewport on mobile browsers
+  // (address bar / toolbar otherwise leaves a gap at the bottom while scrolling).
+  function syncViewportCover() {
+    var vv = window.visualViewport;
+    var height = vv && vv.height ? vv.height : window.innerHeight;
+    var top = vv && typeof vv.offsetTop === 'number' ? vv.offsetTop : 0;
+    // Slightly oversize to hide sub-pixel / safe-area gaps
+    var cover = Math.ceil(height + 2);
+    document.documentElement.style.setProperty('--app-height', cover + 'px');
+    root.style.top = top + 'px';
+    root.style.height = cover + 'px';
+  }
+
+  syncViewportCover();
+  window.addEventListener('resize', syncViewportCover);
+  window.addEventListener('orientationchange', function () {
+    setTimeout(syncViewportCover, 50);
+  });
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', syncViewportCover);
+    window.visualViewport.addEventListener('scroll', syncViewportCover);
+  }
   function pathFor(key, ext) {
     return BASE + key + '.' + ext;
   }

@@ -24,21 +24,38 @@
 /* === Full-page fixed scenic background === */
 .bg-media {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 0;
-  width: 100%;
-  height: 100%;
+  width: auto;
+  max-width: 100%;
+  /* Mobile browsers: prefer JS --app-height; fallbacks cover chrome gaps */
+  height: 100vh;
   height: 100dvh;
+  height: var(--app-height, 100dvh);
+  min-height: 100%;
+  min-height: -webkit-fill-available;
   overflow: hidden;
   pointer-events: none;
   background-color: var(--bg);
   background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  /* Cover safe areas / toolbar gaps on phones */
+  box-sizing: border-box;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 .bg-media-image {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  min-height: 100%;
   object-fit: cover;
   object-position: center;
   /* Never stretch: cover crops to fill while preserving aspect ratio */
@@ -49,7 +66,11 @@
 }
 .bg-media-overlay {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
   z-index: 1;
   background:
     linear-gradient(180deg, rgba(240, 247, 246, 0.55) 0%, rgba(240, 247, 246, 0.72) 45%, rgba(240, 247, 246, 0.82) 100%),
@@ -59,7 +80,15 @@
 
 /* === Base styles === */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 16px; scroll-behavior: smooth; }
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  height: 100%;
+  min-height: 100%;
+  min-height: -webkit-fill-available;
+  overflow-x: hidden;
+  max-width: 100%;
+}
 body {
   font-family: var(--font);
   color: var(--ink);
@@ -67,15 +96,22 @@ body {
   line-height: 1.75;
   padding: 0;
   min-height: 100vh;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
   position: relative;
   z-index: 1;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 article.page {
   max-width: var(--max);
+  width: 100%;
   margin: 0 auto;
   padding: 0 1rem 3rem;
   position: relative;
   z-index: 1;
+  overflow-x: clip;
+  box-sizing: border-box;
 }
 
 /* === Hero Section === */
@@ -929,21 +965,39 @@ footer .sources a {
 }
 
 /* === Mobile Touch Optimization === */
-body {
+html, body {
   -webkit-tap-highlight-color: transparent;
   -webkit-text-size-adjust: 100%;
   overflow-x: hidden;
+  overscroll-behavior-x: none;
 }
 
 /* === Responsive === */
 @media (max-width: 768px) {
-  html { font-size: 15px; }
-  article.page { padding: 0 0.6rem 2rem; }
+  html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+    width: 100%;
+  }
+  article.page {
+    padding: 0 0.6rem 2rem;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  .bg-media {
+    left: 0;
+    right: 0;
+    width: auto;
+    max-width: 100%;
+  }
+  img, svg, video, canvas {
+    max-width: 100%;
+  }
 
   /* Floating TOC */
-  .floating-toc { right: 0.8rem; top: 22vh; }
+  .floating-toc { right: 0.8rem; top: 22vh; max-width: calc(100% - 1.6rem); }
   .toc-toggle { width: 40px; height: 40px; font-size: 1.1rem; }
-  .toc-panel { min-width: 130px; }
+  .toc-panel { min-width: 130px; max-width: min(70vw, 220px); }
   .toc-item { font-size: 0.8rem; padding: 0.45rem 0.8rem; }
 
   /* Hero */
@@ -974,9 +1028,10 @@ body {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     min-width: auto;
+    max-width: 100%;
     position: relative;
     padding-bottom: 0.3rem;
-    padding-right: 4.5rem;
+    padding-right: 0.5rem;
     gap: 0;
   }
   .day-btn {
@@ -1169,6 +1224,7 @@ body {
   align-items: flex-start;
   flex-direction: row-reverse;
   gap: 0;
+  max-width: calc(100% - 1.5rem);
 }
 .toc-toggle {
   width: 46px;
@@ -1204,15 +1260,18 @@ body {
   margin-right: 0;
   min-width: 150px;
   opacity: 0;
-  transform: translateX(20px);
+  /* Slide toward toggle (inward), not past the screen edge */
+  transform: translateX(8px);
   pointer-events: none;
   transition: opacity 0.25s, transform 0.25s;
+  visibility: hidden;
 }
 .toc-panel.open {
   opacity: 1;
   transform: translateX(0);
   pointer-events: auto;
   margin-right: 0.6rem;
+  visibility: visible;
 }
 .toc-item {
   display: flex;
