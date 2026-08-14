@@ -247,16 +247,17 @@
   });
 })();
 
-// === Shared checklist (cloud JSON via keyvalue API + local fallback) ===
+// === Shared dual checklist (blue + pink) via keyvalue API ===
 (function() {
-  var checkboxes = document.querySelectorAll('#checklist input[type="checkbox"]');
-  var progressBar = document.getElementById('progressBar');
+  var checkboxes = document.querySelectorAll('#checklist input[type="checkbox"][data-item][data-who]');
+  var progressBlue = document.getElementById('progressBarBlue');
+  var progressPink = document.getElementById('progressBarPink');
   var progressText = document.getElementById('progressText');
   var syncEl = document.getElementById('checklistSync');
-  var LOCAL_KEY = 'guilin-beihai-checklist';
+  var LOCAL_KEY = 'guilin-beihai-checklist-v2';
   // Public KV store. POST is a "simple" CORS request (PUT is not — browsers preflight).
   var KV_NS = 'tripo-gblh';
-  var KV_KEY = 'checklist';
+  var KV_KEY = 'checklist-v2';
   var KV_BASE = 'https://keyvalue.immanuel.co/api/KeyVal';
   var POLL_MS = 4000;
   var SAVE_DEBOUNCE_MS = 350;
@@ -265,7 +266,20 @@
   var applyingRemote = false;
   var lastRemoteUpdatedAt = 0;
   var pendingSave = false;
+  // dirty keys: "itemId:who" e.g. "id-card:blue"
   var dirtyIds = {};
+
+  var itemIds = [];
+  (function collectItemIds() {
+    var seen = {};
+    checkboxes.forEach(function(cb) {
+      var id = cb.getAttribute('data-item');
+      if (id && !seen[id]) {
+        seen[id] = true;
+        itemIds.push(id);
+      }
+    });
+  })();
 
   function setSync(text, cls) {
     if (!syncEl) return;
@@ -273,44 +287,94 @@
     syncEl.className = 'checklist-sync' + (cls ? ' ' + cls : '');
   }
 
-  function markDirty(id) {
-    if (id) dirtyIds[id] = true;
+  function markDirty(itemId, who) {
+    if (itemId && who) dirtyIds[itemId + ':' + who] = true;
   }
 
-  function markAllDirty() {
-    checkboxes.forEach(function(cb) { dirtyIds[cb.id] = true; });
+  function markAllDirty(who) {
+    itemIds.forEach(function(id) {
+      if (!who || who === 'blue') dirtyIds[id + ':blue'] = true;
+      if (!who || who === 'pink') dirtyIds[id + ':pink'] = true;
+    });
+  }
+
+  function normalizeEntry(v) {
+    if (v && typeof v === 'object' && !Array.isArray(v)) {
+      return { blue: !!v.blue, pink: !!v.pink };
+    }
+    // Legacy single-bool → map to blue only
+    if (typeof v === 'boolean') {
+      return { blue: v, pink: false };
+    }
+    return { blue: false, pink: false };
+  }
+
+  function normalizeItems(items) {
+    var out = {};
+    if (!items || typeof items !== 'object') return out;
+    Object.keys(items).forEach(function(k) {
+      out[k] = normalizeEntry(items[k]);
+    });
+    return out;
   }
 
   function collectState() {
     var state = {};
+    itemIds.forEach(function(id) {
+      state[id] = { blue: false, pink: false };
+    });
     checkboxes.forEach(function(cb) {
-      state[cb.id] = !!cb.checked;
+      var id = cb.getAttribute('data-item');
+      var who = cb.getAttribute('data-who');
+      if (!id || (who !== 'blue' && who !== 'pink')) return;
+      if (!state[id]) state[id] = { blue: false, pink: false };
+      state[id][who] = !!cb.checked;
     });
     return state;
   }
 
   function applyState(items) {
-    if (!items || typeof items !== 'object') return;
+    var normalized = normalizeItems(items);
     applyingRemote = true;
     checkboxes.forEach(function(cb) {
-      if (Object.prototype.hasOwnProperty.call(items, cb.id)) {
-        cb.checked = !!items[cb.id];
-      }
+      var id = cb.getAttribute('data-item');
+      var who = cb.getAttribute('data-who');
+      if (!id || (who !== 'blue' && who !== 'pink')) return;
+      var entry = normalized[id] || { blue: false, pink: false };
+      cb.checked = !!entry[who];
     });
     applyingRemote = false;
+    updateRowDoneState();
     updateProgress();
-    try { localStorage.setItem(LOCAL_KEY, JSON.stringify(items)); } catch (e) {}
+    try { localStorage.setItem(LOCAL_KEY, JSON.stringify(normalized)); } catch (e) {}
+  }
+
+  function updateRowDoneState() {
+    document.querySelectorAll('#checklist .checklist-item[data-item]').forEach(function(row) {
+      var id = row.getAttribute('data-item');
+      var blue = row.querySelector('input.check-blue');
+      var pink = row.querySelector('input.check-pink');
+      var both = blue && pink && blue.checked && pink.checked;
+      row.classList.toggle('is-done-both', !!both);
+    });
   }
 
   function updateProgress() {
-    var total = checkboxes.length;
-    var checked = 0;
+    var total = itemIds.length;
+    var blueChecked = 0;
+    var pinkChecked = 0;
     checkboxes.forEach(function(cb) {
-      if (cb.checked) checked++;
+      if (!cb.checked) return;
+      if (cb.getAttribute('data-who') === 'blue') blueChecked++;
+      if (cb.getAttribute('data-who') === 'pink') pinkChecked++;
     });
-    var percent = total > 0 ? (checked / total * 100) : 0;
-    if (progressBar) progressBar.style.width = percent + '%';
-    if (progressText) progressText.textContent = checked + ' / ' + total;
+    var bluePct = total > 0 ? (blueChecked / total * 50) : 0;
+    var pinkPct = total > 0 ? (pinkChecked / total * 50) : 0;
+    if (progressBlue) progressBlue.style.width = bluePct + '%';
+    if (progressPink) progressPink.style.width = pinkPct + '%';
+    if (progressText) {
+      progressText.textContent = '蓝 ' + blueChecked + '/' + total + ' · 粉 ' + pinkChecked + '/' + total;
+    }
   }
 
   function toB64(str) {
@@ -330,23 +394,27 @@
   }
 
   function parseRemotePayload(raw) {
-    if (raw == null || raw === '') return { v: 1, items: {}, updatedAt: 0 };
+    if (raw == null || raw === '') return { v: 2, items: {}, updatedAt: 0 };
     var text = raw;
     if (typeof raw !== 'string') {
-      try { text = JSON.stringify(raw); } catch (e) { return { v: 1, items: {}, updatedAt: 0 }; }
+      try { text = JSON.stringify(raw); } catch (e) { return { v: 2, items: {}, updatedAt: 0 }; }
     }
-    // Stored as base64 JSON string
     try {
       var decoded = fromB64(text);
       var data = JSON.parse(decoded);
-      if (data && typeof data === 'object') return data;
+      if (data && typeof data === 'object') {
+        data.items = normalizeItems(data.items);
+        return data;
+      }
     } catch (e) {}
-    // Fallback: plain JSON
     try {
       var plain = JSON.parse(text);
-      if (plain && typeof plain === 'object') return plain;
+      if (plain && typeof plain === 'object') {
+        plain.items = normalizeItems(plain.items);
+        return plain;
+      }
     } catch (e2) {}
-    return { v: 1, items: {}, updatedAt: 0 };
+    return { v: 2, items: {}, updatedAt: 0 };
   }
 
   function fetchRemote() {
@@ -358,7 +426,6 @@
       if (!res.ok) throw new Error('HTTP ' + res.status);
       return res.json();
     }).then(function(data) {
-      // API returns a JSON string (base64) or empty string
       return parseRemotePayload(data);
     });
   }
@@ -369,7 +436,6 @@
       encodeURIComponent(KV_NS) + '/' +
       encodeURIComponent(KV_KEY) + '/' +
       encodeURIComponent(b64);
-    // POST + no custom content-type → simple request, skips broken preflights
     return fetch(url, {
       method: 'POST',
       cache: 'no-store',
@@ -418,15 +484,18 @@
     dirtyIds = {};
 
     fetchRemote().then(function(data) {
-      var remoteItems = (data && data.items && typeof data.items === 'object')
-        ? Object.assign({}, data.items)
-        : {};
-      Object.keys(dirtySnapshot).forEach(function(id) {
-        remoteItems[id] = !!localItems[id];
+      var remoteItems = normalizeItems((data && data.items) || {});
+      Object.keys(dirtySnapshot).forEach(function(key) {
+        var parts = key.split(':');
+        var itemId = parts[0];
+        var who = parts[1];
+        if (!itemId || (who !== 'blue' && who !== 'pink')) return;
+        if (!remoteItems[itemId]) remoteItems[itemId] = { blue: false, pink: false };
+        remoteItems[itemId][who] = !!(localItems[itemId] && localItems[itemId][who]);
       });
 
       var payload = {
-        v: 1,
+        v: 2,
         items: remoteItems,
         updatedAt: Date.now()
       };
@@ -447,6 +516,7 @@
   function scheduleSave() {
     if (applyingRemote) return;
     try { localStorage.setItem(LOCAL_KEY, JSON.stringify(collectState())); } catch (e) {}
+    updateRowDoneState();
     updateProgress();
     clearTimeout(saveTimer);
     saveTimer = setTimeout(pushRemote, SAVE_DEBOUNCE_MS);
@@ -454,10 +524,19 @@
 
   checkboxes.forEach(function(cb) {
     cb.addEventListener('change', function() {
-      markDirty(cb.id);
+      markDirty(cb.getAttribute('data-item'), cb.getAttribute('data-who'));
       scheduleSave();
     });
   });
+
+  window.checkAllWho = function(who, state) {
+    if (who !== 'blue' && who !== 'pink') return;
+    checkboxes.forEach(function(cb) {
+      if (cb.getAttribute('data-who') === who) cb.checked = !!state;
+    });
+    markAllDirty(who);
+    scheduleSave();
+  };
 
   window.checkAll = function(state) {
     checkboxes.forEach(function(cb) { cb.checked = !!state; });

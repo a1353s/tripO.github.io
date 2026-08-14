@@ -580,8 +580,15 @@
         物品清单
       </h2>
 
+      <div class="checklist-legend">
+        <span class="legend-blue">蓝框</span>
+        <span class="legend-pink">粉框</span>
+        <span class="legend-hint">两人各勾各的，状态共享</span>
+      </div>
+
       <div class="checklist-controls">
-        <button class="checklist-btn" onclick="checkAll(true)">✅ 全选</button>
+        <button class="checklist-btn blue" onclick="checkAllWho('blue', true)">蓝全选</button>
+        <button class="checklist-btn pink" onclick="checkAllWho('pink', true)">粉全选</button>
         <button class="checklist-btn" onclick="checkAll(false)">☐ 全不选</button>
         <button class="checklist-btn" onclick="resetChecklist()">🔄 重置</button>
         <span class="checklist-sync" id="checklistSync" title="勾选会同步给所有打开此页面的人">同步中…</span>
@@ -589,9 +596,12 @@
 
       <div class="checklist-progress">
         <div class="progress-bar-bg">
-          <div class="progress-bar-fill" id="progressBar"></div>
+          <div class="progress-bar-fill dual">
+            <div class="progress-bar-blue" id="progressBarBlue"></div>
+            <div class="progress-bar-pink" id="progressBarPink"></div>
+          </div>
         </div>
-        <span class="progress-text" id="progressText">0 / 0</span>
+        <span class="progress-text" id="progressText">蓝 0/0 · 粉 0/0</span>
       </div>
 
       <div class="checklist-grid">
@@ -599,82 +609,82 @@
         <!-- 证件财务 -->
         <div class="checklist-category">
           <h4><span class="cat-icon" style="background:rgba(13,148,136,0.12);">🪪</span> 证件财务</h4>
-          <div class="checklist-item"><input type="checkbox" id="id-card"><label for="id-card">身份证</label></div>
-          <div class="checklist-item"><input type="checkbox" id="student-card"><label for="student-card">学生证<span class="item-note">（部分景点半价）</span></label></div>
-          <div class="checklist-item"><input type="checkbox" id="bank-card"><label for="bank-card">银行卡/信用卡</label></div>
-          <div class="checklist-item"><input type="checkbox" id="cash"><label for="cash">现金<span class="item-note">（山区/小摊需备用）</span></label></div>
-          <div class="checklist-item"><input type="checkbox" id="phone-case"><label for="phone-case">手机+充电宝+充电线</label></div>
-          <div class="checklist-item"><input type="checkbox" id="tickets"><label for="tickets">已预订门票/船票截图</label></div>
+          <div class="checklist-item" data-item="id-card"><span class="check-pair"><input type="checkbox" class="check-blue" id="id-card-blue" data-item="id-card" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="id-card-pink" data-item="id-card" data-who="pink" aria-label="粉方"></span><span class="item-label">身份证</span></div>
+          <div class="checklist-item" data-item="student-card"><span class="check-pair"><input type="checkbox" class="check-blue" id="student-card-blue" data-item="student-card" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="student-card-pink" data-item="student-card" data-who="pink" aria-label="粉方"></span><span class="item-label">学生证<span class="item-note">（部分景点半价）</span></span></div>
+          <div class="checklist-item" data-item="bank-card"><span class="check-pair"><input type="checkbox" class="check-blue" id="bank-card-blue" data-item="bank-card" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="bank-card-pink" data-item="bank-card" data-who="pink" aria-label="粉方"></span><span class="item-label">银行卡/信用卡</span></div>
+          <div class="checklist-item" data-item="cash"><span class="check-pair"><input type="checkbox" class="check-blue" id="cash-blue" data-item="cash" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="cash-pink" data-item="cash" data-who="pink" aria-label="粉方"></span><span class="item-label">现金<span class="item-note">（山区/小摊需备用）</span></span></div>
+          <div class="checklist-item" data-item="phone-case"><span class="check-pair"><input type="checkbox" class="check-blue" id="phone-case-blue" data-item="phone-case" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="phone-case-pink" data-item="phone-case" data-who="pink" aria-label="粉方"></span><span class="item-label">手机+充电宝+充电线</span></div>
+          <div class="checklist-item" data-item="tickets"><span class="check-pair"><input type="checkbox" class="check-blue" id="tickets-blue" data-item="tickets" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="tickets-pink" data-item="tickets" data-who="pink" aria-label="粉方"></span><span class="item-label">已预订门票/船票截图</span></div>
         </div>
 
         <!-- 衣物穿搭 -->
         <div class="checklist-category">
           <h4><span class="cat-icon" style="background:rgba(245,158,11,0.12);">👕</span> 衣物穿搭</h4>
-          <div class="checklist-item"><input type="checkbox" id="tshirts"><label for="tshirts">速干T恤/短袖 ×4-5</label></div>
-          <div class="checklist-item"><input type="checkbox" id="pants"><label for="pants">轻薄长裤 ×2<span class="item-note">（防蚊+防晒）</span></label></div>
-          <div class="checklist-item"><input type="checkbox" id="shorts"><label for="shorts">短裤 ×2</label></div>
-          <div class="checklist-item"><input type="checkbox" id="jacket"><label for="jacket">薄外套 ×1<span class="item-note">（龙脊早晚凉/动车空调）</span></label></div>
-          <div class="checklist-item"><input type="checkbox" id="swimwear"><label for="swimwear">泳衣<span class="item-note">（北海银滩/酒店泳池）</span></label></div>
-          <div class="checklist-item"><input type="checkbox" id="walking-shoes"><label for="walking-shoes">舒适运动鞋<span class="item-note">（梯田徒步）</span></label></div>
-          <div class="checklist-item"><input type="checkbox" id="sandals"><label for="sandals">凉鞋/溯溪鞋<span class="item-note">（竹筏/海滩）</span></label></div>
-          <div class="checklist-item"><input type="checkbox" id="innerwear"><label for="innerwear">浅色内衣<span class="item-note">（约拍要求）</span></label></div>
+          <div class="checklist-item" data-item="tshirts"><span class="check-pair"><input type="checkbox" class="check-blue" id="tshirts-blue" data-item="tshirts" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="tshirts-pink" data-item="tshirts" data-who="pink" aria-label="粉方"></span><span class="item-label">速干T恤/短袖 ×4-5</span></div>
+          <div class="checklist-item" data-item="pants"><span class="check-pair"><input type="checkbox" class="check-blue" id="pants-blue" data-item="pants" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="pants-pink" data-item="pants" data-who="pink" aria-label="粉方"></span><span class="item-label">轻薄长裤 ×2<span class="item-note">（防蚊+防晒）</span></span></div>
+          <div class="checklist-item" data-item="shorts"><span class="check-pair"><input type="checkbox" class="check-blue" id="shorts-blue" data-item="shorts" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="shorts-pink" data-item="shorts" data-who="pink" aria-label="粉方"></span><span class="item-label">短裤 ×2</span></div>
+          <div class="checklist-item" data-item="jacket"><span class="check-pair"><input type="checkbox" class="check-blue" id="jacket-blue" data-item="jacket" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="jacket-pink" data-item="jacket" data-who="pink" aria-label="粉方"></span><span class="item-label">薄外套 ×1<span class="item-note">（龙脊早晚凉/动车空调）</span></span></div>
+          <div class="checklist-item" data-item="swimwear"><span class="check-pair"><input type="checkbox" class="check-blue" id="swimwear-blue" data-item="swimwear" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="swimwear-pink" data-item="swimwear" data-who="pink" aria-label="粉方"></span><span class="item-label">泳衣<span class="item-note">（北海银滩/酒店泳池）</span></span></div>
+          <div class="checklist-item" data-item="walking-shoes"><span class="check-pair"><input type="checkbox" class="check-blue" id="walking-shoes-blue" data-item="walking-shoes" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="walking-shoes-pink" data-item="walking-shoes" data-who="pink" aria-label="粉方"></span><span class="item-label">舒适运动鞋<span class="item-note">（梯田徒步）</span></span></div>
+          <div class="checklist-item" data-item="sandals"><span class="check-pair"><input type="checkbox" class="check-blue" id="sandals-blue" data-item="sandals" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="sandals-pink" data-item="sandals" data-who="pink" aria-label="粉方"></span><span class="item-label">凉鞋/溯溪鞋<span class="item-note">（竹筏/海滩）</span></span></div>
+          <div class="checklist-item" data-item="innerwear"><span class="check-pair"><input type="checkbox" class="check-blue" id="innerwear-blue" data-item="innerwear" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="innerwear-pink" data-item="innerwear" data-who="pink" aria-label="粉方"></span><span class="item-label">浅色内衣<span class="item-note">（约拍要求）</span></span></div>
         </div>
 
         <!-- 防晒防蚊 -->
         <div class="checklist-category">
           <h4><span class="cat-icon" style="background:rgba(239,68,68,0.12);">☀️</span> 防晒防蚊</h4>
-          <div class="checklist-item"><input type="checkbox" id="sunscreen"><label for="sunscreen">防晒霜 SPF50+<span class="item-note">（9月紫外线强）</span></label></div>
-          <div class="checklist-item"><input type="checkbox" id="sun-hat"><label for="sun-hat">遮阳帽/草帽</label></div>
-          <div class="checklist-item"><input type="checkbox" id="sunglasses"><label for="sunglasses">墨镜</label></div>
-          <div class="checklist-item"><input type="checkbox" id="sun-umbrella"><label for="sun-umbrella">遮阳伞<span class="item-note">（比雨伞更重要）</span></label></div>
-          <div class="checklist-item"><input type="checkbox" id="sunshirt"><label for="sunshirt">防晒衣/冰袖</label></div>
-          <div class="checklist-item"><input type="checkbox" id="mosquito"><label for="mosquito">驱蚊液+止痒膏<span class="item-note">（山区/江边蚊虫多）</span></label></div>
-          <div class="checklist-item"><input type="checkbox" id="mosquito-coil"><label for="mosquito-coil">电蚊香片<span class="item-note">（龙脊民宿用）</span></label></div>
+          <div class="checklist-item" data-item="sunscreen"><span class="check-pair"><input type="checkbox" class="check-blue" id="sunscreen-blue" data-item="sunscreen" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="sunscreen-pink" data-item="sunscreen" data-who="pink" aria-label="粉方"></span><span class="item-label">防晒霜 SPF50+<span class="item-note">（9月紫外线强）</span></span></div>
+          <div class="checklist-item" data-item="sun-hat"><span class="check-pair"><input type="checkbox" class="check-blue" id="sun-hat-blue" data-item="sun-hat" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="sun-hat-pink" data-item="sun-hat" data-who="pink" aria-label="粉方"></span><span class="item-label">遮阳帽/草帽</span></div>
+          <div class="checklist-item" data-item="sunglasses"><span class="check-pair"><input type="checkbox" class="check-blue" id="sunglasses-blue" data-item="sunglasses" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="sunglasses-pink" data-item="sunglasses" data-who="pink" aria-label="粉方"></span><span class="item-label">墨镜</span></div>
+          <div class="checklist-item" data-item="sun-umbrella"><span class="check-pair"><input type="checkbox" class="check-blue" id="sun-umbrella-blue" data-item="sun-umbrella" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="sun-umbrella-pink" data-item="sun-umbrella" data-who="pink" aria-label="粉方"></span><span class="item-label">遮阳伞<span class="item-note">（比雨伞更重要）</span></span></div>
+          <div class="checklist-item" data-item="sunshirt"><span class="check-pair"><input type="checkbox" class="check-blue" id="sunshirt-blue" data-item="sunshirt" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="sunshirt-pink" data-item="sunshirt" data-who="pink" aria-label="粉方"></span><span class="item-label">防晒衣/冰袖</span></div>
+          <div class="checklist-item" data-item="mosquito"><span class="check-pair"><input type="checkbox" class="check-blue" id="mosquito-blue" data-item="mosquito" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="mosquito-pink" data-item="mosquito" data-who="pink" aria-label="粉方"></span><span class="item-label">驱蚊液+止痒膏<span class="item-note">（山区/江边蚊虫多）</span></span></div>
+          <div class="checklist-item" data-item="mosquito-coil"><span class="check-pair"><input type="checkbox" class="check-blue" id="mosquito-coil-blue" data-item="mosquito-coil" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="mosquito-coil-pink" data-item="mosquito-coil" data-who="pink" aria-label="粉方"></span><span class="item-label">电蚊香片<span class="item-note">（龙脊民宿用）</span></span></div>
         </div>
 
         <!-- 约拍专用 -->
         <div class="checklist-category">
           <h4><span class="cat-icon" style="background:rgba(168,85,247,0.12);">📸</span> 约拍专用</h4>
-          <div class="checklist-item"><input type="checkbox" id="contacts"><label for="contacts">美瞳<span class="item-note">（自备，门店不提供）</span></label></div>
-          <div class="checklist-item"><input type="checkbox" id="nipple-cover"><label for="nipple-cover">胸贴<span class="item-note">（自备）</span></label></div>
-          <div class="checklist-item"><input type="checkbox" id="skin-leggings"><label for="skin-leggings">肤色打底裤<span class="item-note">（自备）</span></label></div>
-          <div class="checklist-item"><input type="checkbox" id="flat-shoes"><label for="flat-shoes">平底鞋/运动鞋<span class="item-note">（山顶需步行，勿穿高跟鞋）</span></label></div>
-          <div class="checklist-item"><input type="checkbox" id="photo-booking"><label for="photo-booking">提前3天预约确认<span class="item-note">（姓名+手机号）</span></label></div>
-          <div class="checklist-item"><input type="checkbox" id="makeup-remover"><label for="makeup-remover">卸妆用品<span class="item-note">（拍摄后卸妆）</span></label></div>
+          <div class="checklist-item" data-item="contacts"><span class="check-pair"><input type="checkbox" class="check-blue" id="contacts-blue" data-item="contacts" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="contacts-pink" data-item="contacts" data-who="pink" aria-label="粉方"></span><span class="item-label">美瞳<span class="item-note">（自备，门店不提供）</span></span></div>
+          <div class="checklist-item" data-item="nipple-cover"><span class="check-pair"><input type="checkbox" class="check-blue" id="nipple-cover-blue" data-item="nipple-cover" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="nipple-cover-pink" data-item="nipple-cover" data-who="pink" aria-label="粉方"></span><span class="item-label">胸贴<span class="item-note">（自备）</span></span></div>
+          <div class="checklist-item" data-item="skin-leggings"><span class="check-pair"><input type="checkbox" class="check-blue" id="skin-leggings-blue" data-item="skin-leggings" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="skin-leggings-pink" data-item="skin-leggings" data-who="pink" aria-label="粉方"></span><span class="item-label">肤色打底裤<span class="item-note">（自备）</span></span></div>
+          <div class="checklist-item" data-item="flat-shoes"><span class="check-pair"><input type="checkbox" class="check-blue" id="flat-shoes-blue" data-item="flat-shoes" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="flat-shoes-pink" data-item="flat-shoes" data-who="pink" aria-label="粉方"></span><span class="item-label">平底鞋/运动鞋<span class="item-note">（山顶需步行，勿穿高跟鞋）</span></span></div>
+          <div class="checklist-item" data-item="photo-booking"><span class="check-pair"><input type="checkbox" class="check-blue" id="photo-booking-blue" data-item="photo-booking" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="photo-booking-pink" data-item="photo-booking" data-who="pink" aria-label="粉方"></span><span class="item-label">提前3天预约确认<span class="item-note">（姓名+手机号）</span></span></div>
+          <div class="checklist-item" data-item="makeup-remover"><span class="check-pair"><input type="checkbox" class="check-blue" id="makeup-remover-blue" data-item="makeup-remover" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="makeup-remover-pink" data-item="makeup-remover" data-who="pink" aria-label="粉方"></span><span class="item-label">卸妆用品<span class="item-note">（拍摄后卸妆）</span></span></div>
         </div>
 
         <!-- 洗护医药 -->
         <div class="checklist-category">
           <h4><span class="cat-icon" style="background:rgba(34,197,94,0.12);">💊</span> 洗护医药</h4>
-          <div class="checklist-item"><input type="checkbox" id="toiletries"><label for="toiletries">旅行洗护套装</label></div>
-          <div class="checklist-item"><input type="checkbox" id="towel"><label for="towel">速干毛巾</label></div>
-          <div class="checklist-item"><input type="checkbox" id="motion-sickness"><label for="motion-sickness">晕车药<span class="item-note">（龙脊盘山路）</span></label></div>
-          <div class="checklist-item"><input type="checkbox" id="stomach-meds"><label for="stomach-meds">肠胃药+止泻药<span class="item-note">（海鲜/水土不服）</span></label></div>
-          <div class="checklist-item"><input type="checkbox" id="band-aids"><label for="band-aids">创可贴+碘伏棉签</label></div>
-          <div class="checklist-item"><input type="checkbox" id="thermometer"><label for="thermometer">体温计</label></div>
+          <div class="checklist-item" data-item="toiletries"><span class="check-pair"><input type="checkbox" class="check-blue" id="toiletries-blue" data-item="toiletries" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="toiletries-pink" data-item="toiletries" data-who="pink" aria-label="粉方"></span><span class="item-label">旅行洗护套装</span></div>
+          <div class="checklist-item" data-item="towel"><span class="check-pair"><input type="checkbox" class="check-blue" id="towel-blue" data-item="towel" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="towel-pink" data-item="towel" data-who="pink" aria-label="粉方"></span><span class="item-label">速干毛巾</span></div>
+          <div class="checklist-item" data-item="motion-sickness"><span class="check-pair"><input type="checkbox" class="check-blue" id="motion-sickness-blue" data-item="motion-sickness" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="motion-sickness-pink" data-item="motion-sickness" data-who="pink" aria-label="粉方"></span><span class="item-label">晕车药<span class="item-note">（龙脊盘山路）</span></span></div>
+          <div class="checklist-item" data-item="stomach-meds"><span class="check-pair"><input type="checkbox" class="check-blue" id="stomach-meds-blue" data-item="stomach-meds" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="stomach-meds-pink" data-item="stomach-meds" data-who="pink" aria-label="粉方"></span><span class="item-label">肠胃药+止泻药<span class="item-note">（海鲜/水土不服）</span></span></div>
+          <div class="checklist-item" data-item="band-aids"><span class="check-pair"><input type="checkbox" class="check-blue" id="band-aids-blue" data-item="band-aids" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="band-aids-pink" data-item="band-aids" data-who="pink" aria-label="粉方"></span><span class="item-label">创可贴+碘伏棉签</span></div>
+          <div class="checklist-item" data-item="thermometer"><span class="check-pair"><input type="checkbox" class="check-blue" id="thermometer-blue" data-item="thermometer" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="thermometer-pink" data-item="thermometer" data-who="pink" aria-label="粉方"></span><span class="item-label">体温计</span></div>
         </div>
 
         <!-- 电子设备 -->
         <div class="checklist-category">
           <h4><span class="cat-icon" style="background:rgba(59,130,246,0.12);">📱</span> 电子设备</h4>
-          <div class="checklist-item"><input type="checkbox" id="phone"><label for="phone">手机+手机充电器</label></div>
-          <div class="checklist-item"><input type="checkbox" id="power-bank"><label for="power-bank">充电宝<span class="item-note">（20000mAh以下可上飞机）</span></label></div>
-          <div class="checklist-item"><input type="checkbox" id="camera"><label for="camera">相机+存储卡+备用电池</label></div>
-          <div class="checklist-item"><input type="checkbox" id="selfie-stick"><label for="selfie-stick">自拍杆/三脚架</label></div>
-          <div class="checklist-item"><input type="checkbox" id="earphones"><label for="earphones">耳机<span class="item-note">（动车/飞机用）</span></label></div>
-          <div class="checklist-item"><input type="checkbox" id="waterproof-bag"><label for="waterproof-bag">防水袋<span class="item-note">（竹筏/海滩手机防水）</span></label></div>
+          <div class="checklist-item" data-item="phone"><span class="check-pair"><input type="checkbox" class="check-blue" id="phone-blue" data-item="phone" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="phone-pink" data-item="phone" data-who="pink" aria-label="粉方"></span><span class="item-label">手机+手机充电器</span></div>
+          <div class="checklist-item" data-item="power-bank"><span class="check-pair"><input type="checkbox" class="check-blue" id="power-bank-blue" data-item="power-bank" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="power-bank-pink" data-item="power-bank" data-who="pink" aria-label="粉方"></span><span class="item-label">充电宝<span class="item-note">（20000mAh以下可上飞机）</span></span></div>
+          <div class="checklist-item" data-item="camera"><span class="check-pair"><input type="checkbox" class="check-blue" id="camera-blue" data-item="camera" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="camera-pink" data-item="camera" data-who="pink" aria-label="粉方"></span><span class="item-label">相机+存储卡+备用电池</span></div>
+          <div class="checklist-item" data-item="selfie-stick"><span class="check-pair"><input type="checkbox" class="check-blue" id="selfie-stick-blue" data-item="selfie-stick" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="selfie-stick-pink" data-item="selfie-stick" data-who="pink" aria-label="粉方"></span><span class="item-label">自拍杆/三脚架</span></div>
+          <div class="checklist-item" data-item="earphones"><span class="check-pair"><input type="checkbox" class="check-blue" id="earphones-blue" data-item="earphones" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="earphones-pink" data-item="earphones" data-who="pink" aria-label="粉方"></span><span class="item-label">耳机<span class="item-note">（动车/飞机用）</span></span></div>
+          <div class="checklist-item" data-item="waterproof-bag"><span class="check-pair"><input type="checkbox" class="check-blue" id="waterproof-bag-blue" data-item="waterproof-bag" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="waterproof-bag-pink" data-item="waterproof-bag" data-who="pink" aria-label="粉方"></span><span class="item-label">防水袋<span class="item-note">（竹筏/海滩手机防水）</span></span></div>
         </div>
 
         <!-- 其他杂物 -->
         <div class="checklist-category">
           <h4><span class="cat-icon" style="background:rgba(107,114,128,0.12);">🎒</span> 其他杂物</h4>
-          <div class="checklist-item"><input type="checkbox" id="backpack"><label for="backpack">双肩包/斜挎包</label></div>
-          <div class="checklist-item"><input type="checkbox" id="luggage"><label for="luggage">行李箱<span class="item-note">（24-26寸推荐）</span></label></div>
-          <div class="checklist-item"><input type="checkbox" id="water-bottle"><label for="water-bottle">保温水杯</label></div>
-          <div class="checklist-item"><input type="checkbox" id="snacks"><label for="snacks">零食<span class="item-note">（动车上吃）</span></label></div>
-          <div class="checklist-item"><input type="checkbox" id="tissue"><label for="tissue">纸巾+湿巾</label></div>
-          <div class="checklist-item"><input type="checkbox" id="umbrella"><label for="umbrella">折叠雨伞<span class="item-note">（9月仍有阵雨）</span></label></div>
-          <div class="checklist-item"><input type="checkbox" id="reusable-bag"><label for="reusable-bag">环保购物袋<span class="item-note">（装伴手礼）</span></label></div>
+          <div class="checklist-item" data-item="backpack"><span class="check-pair"><input type="checkbox" class="check-blue" id="backpack-blue" data-item="backpack" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="backpack-pink" data-item="backpack" data-who="pink" aria-label="粉方"></span><span class="item-label">双肩包/斜挎包</span></div>
+          <div class="checklist-item" data-item="luggage"><span class="check-pair"><input type="checkbox" class="check-blue" id="luggage-blue" data-item="luggage" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="luggage-pink" data-item="luggage" data-who="pink" aria-label="粉方"></span><span class="item-label">行李箱<span class="item-note">（24-26寸推荐）</span></span></div>
+          <div class="checklist-item" data-item="water-bottle"><span class="check-pair"><input type="checkbox" class="check-blue" id="water-bottle-blue" data-item="water-bottle" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="water-bottle-pink" data-item="water-bottle" data-who="pink" aria-label="粉方"></span><span class="item-label">保温水杯</span></div>
+          <div class="checklist-item" data-item="snacks"><span class="check-pair"><input type="checkbox" class="check-blue" id="snacks-blue" data-item="snacks" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="snacks-pink" data-item="snacks" data-who="pink" aria-label="粉方"></span><span class="item-label">零食<span class="item-note">（动车上吃）</span></span></div>
+          <div class="checklist-item" data-item="tissue"><span class="check-pair"><input type="checkbox" class="check-blue" id="tissue-blue" data-item="tissue" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="tissue-pink" data-item="tissue" data-who="pink" aria-label="粉方"></span><span class="item-label">纸巾+湿巾</span></div>
+          <div class="checklist-item" data-item="umbrella"><span class="check-pair"><input type="checkbox" class="check-blue" id="umbrella-blue" data-item="umbrella" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="umbrella-pink" data-item="umbrella" data-who="pink" aria-label="粉方"></span><span class="item-label">折叠雨伞<span class="item-note">（9月仍有阵雨）</span></span></div>
+          <div class="checklist-item" data-item="reusable-bag"><span class="check-pair"><input type="checkbox" class="check-blue" id="reusable-bag-blue" data-item="reusable-bag" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="reusable-bag-pink" data-item="reusable-bag" data-who="pink" aria-label="粉方"></span><span class="item-label">环保购物袋<span class="item-note">（装伴手礼）</span></span></div>
         </div>
 
       </div>
