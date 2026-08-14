@@ -439,6 +439,16 @@
       })(i);
       selector.appendChild(btn);
     }
+
+    // Keep the active chip away from the right-edge FAB on mobile
+    var activeBtn = selector.querySelector('.day-btn.active');
+    if (activeBtn && typeof activeBtn.scrollIntoView === 'function') {
+      try {
+        activeBtn.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+      } catch (e) {
+        activeBtn.scrollIntoView(false);
+      }
+    }
   }
 
   function selectDay(day) {
