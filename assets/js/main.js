@@ -417,17 +417,52 @@
     return 1;
   }
 
+  function isHorizontalSelector() {
+    return window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+  }
+
+  function scrollActiveIntoView() {
+    var activeBtn = selector.querySelector('.day-btn.active');
+    if (!activeBtn) return;
+
+    if (isHorizontalSelector()) {
+      // Prefer keeping active near the start of the strip so ~4 days stay readable
+      var leftPad = 4;
+      var target = activeBtn.offsetLeft - leftPad;
+      var max = Math.max(0, selector.scrollWidth - selector.clientWidth);
+      selector.scrollLeft = Math.max(0, Math.min(target, max));
+      return;
+    }
+
+    // Desktop: vertical list — keep active visible without jumping the page
+    var top = activeBtn.offsetTop;
+    var bottom = top + activeBtn.offsetHeight;
+    var viewTop = selector.scrollTop;
+    var viewBottom = viewTop + selector.clientHeight;
+    if (top < viewTop) {
+      selector.scrollTop = top;
+    } else if (bottom > viewBottom) {
+      selector.scrollTop = bottom - selector.clientHeight;
+    }
+  }
+
+  function updateActiveButtons() {
+    var btns = selector.querySelectorAll('.day-btn');
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].classList.toggle('active', i + 1 === currentDay);
+    }
+    scrollActiveIntoView();
+  }
+
   function renderSelector() {
     selector.innerHTML = '';
-    // Calculate visible window: currentDay ± 2, clamped to [1, totalDays]
-    var start = Math.max(1, currentDay - 2);
-    var end = Math.min(totalDays, currentDay + 2);
-
-    for (var i = start; i <= end; i++) {
+    // Render all days once — free scroll (horizontal on mobile, vertical on PC)
+    for (var i = 1; i <= totalDays; i++) {
       var info = dayInfo[i - 1];
       var btn = document.createElement('button');
       btn.className = 'day-btn' + (info.isBeihai ? ' beihai' : '') + (i === currentDay ? ' active' : '');
       btn.type = 'button';
+      btn.setAttribute('data-day', String(i));
       btn.innerHTML =
         '<span class="day-btn-num">' + info.label + '</span>' +
         '<span class="day-btn-date">' + info.date + (info.weekday ? ' · ' + info.weekday : '') + '</span>' +
@@ -439,14 +474,7 @@
       })(i);
       selector.appendChild(btn);
     }
-
-    // Horizontal-only: keep active chip centered in the strip (avoid page jump)
-    var activeBtn = selector.querySelector('.day-btn.active');
-    if (activeBtn && selector.scrollWidth > selector.clientWidth) {
-      var target =
-        activeBtn.offsetLeft - (selector.clientWidth - activeBtn.offsetWidth) / 2;
-      selector.scrollLeft = Math.max(0, target);
-    }
+    scrollActiveIntoView();
   }
 
   function selectDay(day) {
@@ -460,7 +488,11 @@
         item.classList.add('hidden');
       }
     });
-    renderSelector();
+    if (selector.childElementCount !== totalDays) {
+      renderSelector();
+    } else {
+      updateActiveButtons();
+    }
     saveCachedDay(day);
 
     var active = items[day - 1];
@@ -470,5 +502,6 @@
     }
   }
 
+  renderSelector();
   selectDay(resolveInitialDay());
 })();
