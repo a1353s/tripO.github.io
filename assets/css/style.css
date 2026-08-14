@@ -778,26 +778,52 @@ section {
 .check-pair {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.45rem;
   flex-shrink: 0;
 }
 .checklist-item input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
+  /* Custom boxes: native accent/outline often invisible on mobile */
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: 2.5px solid;
+  border-radius: 5px;
+  background: #fff;
   cursor: pointer;
   flex-shrink: 0;
-  border-radius: 3px;
-  margin: 0;
+  position: relative;
+  vertical-align: middle;
 }
 .checklist-item input.check-blue {
-  accent-color: #2563eb;
-  outline: 2px solid #2563eb;
-  outline-offset: 1px;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.2);
 }
 .checklist-item input.check-pink {
-  accent-color: #db2777;
-  outline: 2px solid #db2777;
-  outline-offset: 1px;
+  border-color: #db2777;
+  box-shadow: 0 0 0 1px rgba(219, 39, 119, 0.2);
+}
+.checklist-item input.check-blue:checked {
+  background: #2563eb;
+  border-color: #1d4ed8;
+}
+.checklist-item input.check-pink:checked {
+  background: #db2777;
+  border-color: #be185d;
+}
+.checklist-item input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg);
 }
 .checklist-item .item-label {
   flex: 1;
@@ -1187,8 +1213,30 @@ html, body {
   /* Checklist */
   .checklist-grid { grid-template-columns: 1fr; gap: 1rem; }
   .checklist-category { padding: 1rem; }
-  .checklist-item { padding: 0.4rem 0; font-size: 0.86rem; }
-  .checklist-item input[type="checkbox"] { width: 22px; height: 22px; }
+  .checklist-item { padding: 0.5rem 0; font-size: 0.86rem; gap: 0.65rem; }
+  .checklist-item input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+    border-width: 3px;
+  }
+  .checklist-item input[type="checkbox"]:checked::after {
+    left: 7px;
+    top: 2px;
+    width: 5px;
+    height: 11px;
+  }
+  .check-pair { gap: 0.55rem; }
+  .checklist-legend {
+    gap: 0.65rem;
+    margin-bottom: 0.7rem;
+    font-size: 0.9rem;
+  }
+  .legend-blue::before,
+  .legend-pink::before {
+    width: 16px;
+    height: 16px;
+    border-width: 3px;
+  }
   .checklist-btn { padding: 0.5rem 0.9rem; font-size: 0.82rem; }
   .checklist-controls { gap: 0.5rem; }
 
