@@ -247,14 +247,50 @@
   });
 })();
 
-// === Checklist with localStorage ===
+// === Shared checklist (JSON storage + local fallback) ===
 (function() {
   var checkboxes = document.querySelectorAll('#checklist input[type="checkbox"]');
   var progressBar = document.getElementById('progressBar');
   var progressText = document.getElementById('progressText');
-  var STORAGE_KEY = 'guilin-beihai-checklist';
+  var syncEl = document.getElementById('checklistSync');
+  var LOCAL_KEY = 'guilin-beihai-checklist';
+  // Free public JSON bin (extendsclass). Anyone with the page URL can read/write.
+  var REMOTE_URL = 'https://extendsclass.com/api/json-storage/bin/fcadcef';
+  var POLL_MS = 4000;
+  var SAVE_DEBOUNCE_MS = 350;
 
-  // Update progress bar
+  var saveTimer = null;
+  var applyingRemote = false;
+  var lastRemoteUpdatedAt = 0;
+  var pendingSave = false;
+
+  function setSync(text, cls) {
+    if (!syncEl) return;
+    syncEl.textContent = text;
+    syncEl.className = 'checklist-sync' + (cls ? ' ' + cls : '');
+  }
+
+  function collectState() {
+    var state = {};
+    checkboxes.forEach(function(cb) {
+      state[cb.id] = !!cb.checked;
+    });
+    return state;
+  }
+
+  function applyState(items) {
+    if (!items || typeof items !== 'object') return;
+    applyingRemote = true;
+    checkboxes.forEach(function(cb) {
+      if (Object.prototype.hasOwnProperty.call(items, cb.id)) {
+        cb.checked = !!items[cb.id];
+      }
+    });
+    applyingRemote = false;
+    updateProgress();
+    try { localStorage.setItem(LOCAL_KEY, JSON.stringify(items)); } catch (e) {}
+  }
+
   function updateProgress() {
     var total = checkboxes.length;
     var checked = 0;
@@ -262,53 +298,153 @@
       if (cb.checked) checked++;
     });
     var percent = total > 0 ? (checked / total * 100) : 0;
-    progressBar.style.width = percent + '%';
-    progressText.textContent = checked + ' / ' + total;
+    if (progressBar) progressBar.style.width = percent + '%';
+    if (progressText) progressText.textContent = checked + ' / ' + total;
   }
 
-  // Load saved state
-  function loadState() {
+  function fetchRemote() {
+    // Cache-bust: CDN may cache GET for hours
+    return fetch(REMOTE_URL + '?_=' + Date.now(), {
+      method: 'GET',
+      cache: 'no-store'
+    }).then(function(res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    }).then(function(data) {
+      // API may wrap payload as string
+      if (typeof data === 'string') {
+        try { data = JSON.parse(data); } catch (e) { data = {}; }
+      }
+      if (data && typeof data.data === 'string') {
+        try { data = JSON.parse(data.data); } catch (e) {}
+      }
+      return data || {};
+    });
+  }
+
+  function putRemote(payload) {
+    // text/plain avoids CORS preflight issues on this host
+    return fetch(REMOTE_URL, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(payload),
+      cache: 'no-store'
+    }).then(function(res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.text();
+    });
+  }
+
+  function loadLocalFallback() {
     try {
-      var saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-      checkboxes.forEach(function(cb) {
-        if (saved[cb.id] !== undefined) cb.checked = saved[cb.id];
-      });
-    } catch(e) {}
-    updateProgress();
-  }
-
-  // Save state
-  function saveState() {
-    var state = {};
-    checkboxes.forEach(function(cb) {
-      state[cb.id] = cb.checked;
-    });
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
-  }
-
-  // Bind events
-  checkboxes.forEach(function(cb) {
-    cb.addEventListener('change', function() {
-      saveState();
+      var saved = JSON.parse(localStorage.getItem(LOCAL_KEY) || '{}');
+      applyState(saved);
+    } catch (e) {
       updateProgress();
+    }
+  }
+
+  function pullRemote(isInit) {
+    return fetchRemote().then(function(data) {
+      var items = (data && data.items) || {};
+      var updatedAt = Number(data && data.updatedAt) || 0;
+      lastRemoteUpdatedAt = updatedAt;
+      applyState(items);
+      setSync(isInit ? '已同步（共享）' : '已同步', 'ok');
+    }).catch(function() {
+      if (isInit) {
+        loadLocalFallback();
+        setSync('云端暂不可用，已用本机缓存', 'err');
+      } else {
+        setSync('同步失败，稍后重试', 'err');
+      }
     });
+  }
+
+  function pushRemote() {
+    if (pendingSave) return;
+    pendingSave = true;
+    setSync('保存中…', 'pending');
+
+    var localItems = collectState();
+    // Merge with latest remote so concurrent toggles are less likely to clobber
+    fetchRemote().then(function(data) {
+      var remoteItems = (data && data.items && typeof data.items === 'object')
+        ? data.items
+        : {};
+      var merged = {};
+      checkboxes.forEach(function(cb) {
+        var id = cb.id;
+        if (Object.prototype.hasOwnProperty.call(localItems, id)) {
+          merged[id] = localItems[id];
+        } else if (Object.prototype.hasOwnProperty.call(remoteItems, id)) {
+          merged[id] = remoteItems[id];
+        } else {
+          merged[id] = false;
+        }
+      });
+      // Keep unknown remote keys too
+      Object.keys(remoteItems).forEach(function(k) {
+        if (!Object.prototype.hasOwnProperty.call(merged, k)) {
+          merged[k] = remoteItems[k];
+        }
+      });
+
+      var payload = {
+        v: 1,
+        items: merged,
+        updatedAt: Date.now()
+      };
+      return putRemote(payload).then(function() {
+        lastRemoteUpdatedAt = payload.updatedAt;
+        applyState(merged);
+        setSync('已同步（共享）', 'ok');
+      });
+    }).catch(function() {
+      try { localStorage.setItem(LOCAL_KEY, JSON.stringify(localItems)); } catch (e) {}
+      setSync('保存失败，已暂存本机', 'err');
+    }).then(function() {
+      pendingSave = false;
+    });
+  }
+
+  function scheduleSave() {
+    if (applyingRemote) return;
+    try { localStorage.setItem(LOCAL_KEY, JSON.stringify(collectState())); } catch (e) {}
+    updateProgress();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(pushRemote, SAVE_DEBOUNCE_MS);
+  }
+
+  checkboxes.forEach(function(cb) {
+    cb.addEventListener('change', scheduleSave);
   });
 
-  // Expose global functions
   window.checkAll = function(state) {
-    checkboxes.forEach(function(cb) { cb.checked = state; });
-    saveState();
-    updateProgress();
+    checkboxes.forEach(function(cb) { cb.checked = !!state; });
+    scheduleSave();
   };
 
   window.resetChecklist = function() {
     checkboxes.forEach(function(cb) { cb.checked = false; });
-    saveState();
-    updateProgress();
+    scheduleSave();
   };
 
-  // Init
-  loadState();
+  // Init: prefer shared cloud state
+  setSync('同步中…', 'pending');
+  pullRemote(true).then(function() {
+    setInterval(function() {
+      if (pendingSave || document.hidden) return;
+      fetchRemote().then(function(data) {
+        var updatedAt = Number(data && data.updatedAt) || 0;
+        if (updatedAt && updatedAt > lastRemoteUpdatedAt) {
+          lastRemoteUpdatedAt = updatedAt;
+          applyState((data && data.items) || {});
+          setSync('已同步（共享）', 'ok');
+        }
+      }).catch(function() {});
+    }, POLL_MS);
+  });
 })();
 
 // === Day Selector for Timeline ===

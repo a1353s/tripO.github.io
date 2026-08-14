@@ -640,6 +640,14 @@ section {
   flex-wrap: wrap;
   align-items: center;
 }
+.checklist-sync {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-left: 0.15rem;
+}
+.checklist-sync.ok { color: var(--accent); }
+.checklist-sync.err { color: var(--danger); }
+.checklist-sync.pending { color: var(--muted); }
 .checklist-btn {
   padding: 0.45rem 1rem;
   border-radius: 8px;
