@@ -17,7 +17,7 @@
     return path + '/assets/videos/';
   })();
 
-  var CACHE_NAME = 'tripo-bg-v1';
+  var CACHE_NAME = 'tripo-bg-v2';
   var LOCATION_KEYS = ['yangshuo', 'longji', 'guilin', 'beihai'];
 
   var img = document.getElementById('bgImage');
