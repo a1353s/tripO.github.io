@@ -259,8 +259,8 @@
   var KV_NS = 'tripo-gblh';
   var KV_KEY = 'checklist-v2';
   var KV_BASE = 'https://keyvalue.immanuel.co/api/KeyVal';
-  var POLL_MS = 4000;
-  var SAVE_DEBOUNCE_MS = 350;
+  var POLL_MS = 2500;
+  var SAVE_DEBOUNCE_MS = 280;
 
   var saveTimer = null;
   var applyingRemote = false;
@@ -298,11 +298,14 @@
     });
   }
 
+  function hasDirty() {
+    return Object.keys(dirtyIds).length > 0;
+  }
+
   function normalizeEntry(v) {
     if (v && typeof v === 'object' && !Array.isArray(v)) {
       return { blue: !!v.blue, pink: !!v.pink };
     }
-    // Legacy single-bool → map to blue only
     if (typeof v === 'boolean') {
       return { blue: v, pink: false };
     }
@@ -313,7 +316,23 @@
     var out = {};
     if (!items || typeof items !== 'object') return out;
     Object.keys(items).forEach(function(k) {
+      // Ignore legacy flat ids like "id-card-blue"
+      if (k.slice(-5) === '-blue' || k.slice(-5) === '-pink') return;
       out[k] = normalizeEntry(items[k]);
+    });
+    return out;
+  }
+
+  // Keep URL short: only persist checked=true flags
+  function compactItems(items) {
+    var out = {};
+    var normalized = normalizeItems(items);
+    Object.keys(normalized).forEach(function(id) {
+      var e = normalized[id];
+      var row = {};
+      if (e.blue) row.blue = true;
+      if (e.pink) row.pink = true;
+      if (row.blue || row.pink) out[id] = row;
     });
     return out;
   }
@@ -333,8 +352,22 @@
     return state;
   }
 
+  function preserveDirty(normalized) {
+    if (!hasDirty()) return normalized;
+    var local = collectState();
+    Object.keys(dirtyIds).forEach(function(key) {
+      var parts = key.split(':');
+      var itemId = parts[0];
+      var who = parts[1];
+      if (!itemId || (who !== 'blue' && who !== 'pink')) return;
+      if (!normalized[itemId]) normalized[itemId] = { blue: false, pink: false };
+      if (local[itemId]) normalized[itemId][who] = !!local[itemId][who];
+    });
+    return normalized;
+  }
+
   function applyState(items) {
-    var normalized = normalizeItems(items);
+    var normalized = preserveDirty(normalizeItems(items));
     applyingRemote = true;
     checkboxes.forEach(function(cb) {
       var id = cb.getAttribute('data-item');
@@ -351,7 +384,6 @@
 
   function updateRowDoneState() {
     document.querySelectorAll('#checklist .checklist-item[data-item]').forEach(function(row) {
-      var id = row.getAttribute('data-item');
       var blue = row.querySelector('input.check-blue');
       var pink = row.querySelector('input.check-pink');
       var both = blue && pink && blue.checked && pink.checked;
@@ -431,11 +463,19 @@
   }
 
   function putRemote(payload) {
-    var b64 = toB64(JSON.stringify(payload));
+    var body = {
+      v: 2,
+      items: compactItems(payload.items || {}),
+      updatedAt: payload.updatedAt || Date.now()
+    };
+    var b64 = toB64(JSON.stringify(body));
     var url = KV_BASE + '/UpdateValue/' +
       encodeURIComponent(KV_NS) + '/' +
       encodeURIComponent(KV_KEY) + '/' +
       encodeURIComponent(b64);
+    if (url.length > 1800) {
+      throw new Error('payload too large for KV URL');
+    }
     return fetch(url, {
       method: 'POST',
       cache: 'no-store',
@@ -445,6 +485,7 @@
       return res.json();
     }).then(function(ok) {
       if (ok !== true && ok !== 'true') throw new Error('update rejected');
+      return body;
     });
   }
 
@@ -461,7 +502,10 @@
     return fetchRemote().then(function(data) {
       var items = (data && data.items) || {};
       var updatedAt = Number(data && data.updatedAt) || 0;
-      lastRemoteUpdatedAt = updatedAt;
+      if (!isInit && updatedAt && updatedAt <= lastRemoteUpdatedAt && !hasDirty()) {
+        return;
+      }
+      if (updatedAt > lastRemoteUpdatedAt) lastRemoteUpdatedAt = updatedAt;
       applyState(items);
       setSync(isInit ? '已同步（共享）' : '已同步', 'ok');
     }).catch(function() {
@@ -476,6 +520,7 @@
 
   function pushRemote() {
     if (pendingSave) return;
+    if (!hasDirty()) return;
     pendingSave = true;
     setSync('保存中…', 'pending');
 
@@ -499,17 +544,24 @@
         items: remoteItems,
         updatedAt: Date.now()
       };
-      return putRemote(payload).then(function() {
-        lastRemoteUpdatedAt = payload.updatedAt;
-        applyState(remoteItems);
+      return putRemote(payload).then(function(saved) {
+        lastRemoteUpdatedAt = saved.updatedAt;
+        applyState(normalizeItems(saved.items));
         setSync('已同步（共享）', 'ok');
       });
-    }).catch(function() {
+    }).catch(function(err) {
       Object.keys(dirtySnapshot).forEach(function(id) { dirtyIds[id] = true; });
       try { localStorage.setItem(LOCAL_KEY, JSON.stringify(localItems)); } catch (e) {}
       setSync('保存失败，已暂存本机', 'err');
+      if (typeof console !== 'undefined' && console.warn) {
+        console.warn('[checklist] sync failed', err);
+      }
     }).then(function() {
       pendingSave = false;
+      if (hasDirty()) {
+        clearTimeout(saveTimer);
+        saveTimer = setTimeout(pushRemote, SAVE_DEBOUNCE_MS);
+      }
     });
   }
 
@@ -554,7 +606,6 @@
   pullRemote(true).then(function() {
     setInterval(function() {
       if (pendingSave || document.hidden) return;
-      if (Object.keys(dirtyIds).length) return;
       fetchRemote().then(function(data) {
         var updatedAt = Number(data && data.updatedAt) || 0;
         if (updatedAt && updatedAt > lastRemoteUpdatedAt) {
