@@ -12,6 +12,10 @@
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+  <div class="bg-media" id="bgMedia" aria-hidden="true">
+    <video id="bgVideo" muted playsinline preload="metadata"></video>
+    <div class="bg-media-overlay"></div>
+  </div>
   <article class="page">
 
     <!-- ========== HERO ========== -->
@@ -87,7 +91,7 @@
         <div class="timeline" id="timeline">
 
         <!-- Day 1 -->
-        <div class="timeline-item">
+        <div class="timeline-item" data-location="yangshuo">
           <div class="timeline-dot">D1</div>
           <div class="timeline-card">
             <div class="timeline-header">
@@ -112,7 +116,7 @@
         </div>
 
         <!-- Day 2 -->
-        <div class="timeline-item">
+        <div class="timeline-item" data-location="yangshuo">
           <div class="timeline-dot">D2</div>
           <div class="timeline-card">
             <div class="timeline-header">
@@ -187,7 +191,7 @@
         </div>
 
         <!-- Day 3 -->
-        <div class="timeline-item">
+        <div class="timeline-item" data-location="longji">
           <div class="timeline-dot">D3</div>
           <div class="timeline-card">
             <div class="timeline-header">
@@ -215,7 +219,7 @@
         </div>
 
         <!-- Day 4 -->
-        <div class="timeline-item">
+        <div class="timeline-item" data-location="longji">
           <div class="timeline-dot">D4</div>
           <div class="timeline-card">
             <div class="timeline-header">
@@ -243,7 +247,7 @@
         </div>
 
         <!-- Day 5 -->
-        <div class="timeline-item beihai">
+        <div class="timeline-item beihai" data-location="guilin">
           <div class="timeline-dot">D5</div>
           <div class="timeline-card">
             <div class="timeline-header">
@@ -273,7 +277,7 @@
         </div>
 
         <!-- Day 6 -->
-        <div class="timeline-item beihai">
+        <div class="timeline-item beihai" data-location="beihai">
           <div class="timeline-dot">D6</div>
           <div class="timeline-card">
             <div class="timeline-header">
@@ -301,7 +305,7 @@
         </div>
 
         <!-- Day 7 -->
-        <div class="timeline-item beihai">
+        <div class="timeline-item beihai" data-location="beihai">
           <div class="timeline-dot">D7</div>
           <div class="timeline-card">
             <div class="timeline-header">
@@ -328,7 +332,7 @@
         </div>
 
         <!-- Day 8 -->
-        <div class="timeline-item beihai">
+        <div class="timeline-item beihai" data-location="beihai">
           <div class="timeline-dot">D8</div>
           <div class="timeline-card">
             <div class="timeline-header">
@@ -355,7 +359,7 @@
         </div>
 
         <!-- Day 9 -->
-        <div class="timeline-item beihai">
+        <div class="timeline-item beihai" data-location="beihai">
           <div class="timeline-dot">D9</div>
           <div class="timeline-card">
             <div class="timeline-header">
@@ -863,6 +867,7 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
           integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
           crossorigin=""></script>
+  <script src="assets/js/bg-media.js"></script>
   <script src="assets/js/main.js"></script>
 
   <!-- Floating Table of Contents -->

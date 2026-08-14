@@ -1,8 +1,8 @@
 /* === Theme CSS variables === */
 :root {
   --bg: #f0f7f6;
-  --bg2: rgba(255, 255, 255, 0.75);
-  --bg3: rgba(255, 255, 255, 0.9);
+  --bg2: rgba(255, 255, 255, 0.82);
+  --bg3: rgba(255, 255, 255, 0.92);
   --ink: #1a3c3a;
   --muted: #6b8e8a;
   --rule: #d4e5e1;
@@ -21,25 +21,56 @@
   --shadow-lg: 0 8px 40px rgba(13, 148, 136, 0.12);
 }
 
+/* === Full-page fixed scenic background === */
+.bg-media {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  pointer-events: none;
+  background-color: var(--bg);
+  background-repeat: no-repeat;
+}
+.bg-media video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  /* Never stretch: cover crops to fill while preserving aspect ratio */
+}
+.bg-media-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(240, 247, 246, 0.55) 0%, rgba(240, 247, 246, 0.72) 45%, rgba(240, 247, 246, 0.82) 100%),
+    radial-gradient(ellipse at 20% 0%, rgba(13, 148, 136, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 100%, rgba(245, 158, 11, 0.06) 0%, transparent 50%);
+}
+
 /* === Base styles === */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 16px; scroll-behavior: smooth; }
 body {
   font-family: var(--font);
   color: var(--ink);
-  background: var(--bg);
-  background-image:
-    radial-gradient(ellipse at 20% 0%, rgba(13, 148, 136, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 100%, rgba(245, 158, 11, 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 50%, rgba(20, 184, 166, 0.04) 0%, transparent 60%);
+  background: transparent;
   line-height: 1.75;
   padding: 0;
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 article.page {
   max-width: var(--max);
   margin: 0 auto;
   padding: 0 1rem 3rem;
+  position: relative;
+  z-index: 1;
 }
 
 /* === Hero Section === */

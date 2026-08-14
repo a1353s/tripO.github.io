@@ -317,28 +317,105 @@
   var selector = document.getElementById('daySelector');
   if (!timeline || !selector) return;
 
+  var STORAGE_KEY = 'guilin-beihai-selected-day';
   var items = timeline.querySelectorAll('.timeline-item');
   var totalDays = items.length;
   var currentDay = 1;
 
+  // Trip year from page title (e.g. "2026.9.5-9.13")
+  var tripYear = (function() {
+    var m = (document.title || '').match(/(\d{4})\s*[.．]/);
+    return m ? parseInt(m[1], 10) : new Date().getFullYear();
+  })();
+
+  // Parse "9月5日" → { y, m, d } using tripYear
+  function parseTimelineDate(text) {
+    if (!text) return null;
+    var m = String(text).match(/(\d{1,2})\s*月\s*(\d{1,2})\s*日/);
+    if (!m) return null;
+    return {
+      y: tripYear,
+      m: parseInt(m[1], 10),
+      d: parseInt(m[2], 10)
+    };
+  }
+
+  function dateKey(y, m, d) {
+    return y + '-' + m + '-' + d;
+  }
+
+  function todayKey() {
+    var now = new Date();
+    return dateKey(now.getFullYear(), now.getMonth() + 1, now.getDate());
+  }
+
   // Extract day info from timeline items
   var dayInfo = [];
+  var dateToDay = {};
+  var rangeStart = null;
+  var rangeEnd = null;
+
   items.forEach(function(item, idx) {
     var day = idx + 1;
     item.setAttribute('data-day', day);
     var dot = item.querySelector('.timeline-dot');
-    var date = item.querySelector('.timeline-date');
+    var dateEl = item.querySelector('.timeline-date');
     var title = item.querySelector('.timeline-title');
     var isBeihai = item.classList.contains('beihai');
+    var dateText = dateEl ? dateEl.textContent.trim() : '';
+    var parsed = parseTimelineDate(dateText.split(' · ')[0] || dateText);
+
+    if (parsed) {
+      var key = dateKey(parsed.y, parsed.m, parsed.d);
+      dateToDay[key] = day;
+      var t = new Date(parsed.y, parsed.m - 1, parsed.d).getTime();
+      if (rangeStart === null || t < rangeStart) rangeStart = t;
+      if (rangeEnd === null || t > rangeEnd) rangeEnd = t;
+    }
+
     dayInfo.push({
       day: day,
       label: dot ? dot.textContent.trim() : 'D' + day,
-      date: date ? date.textContent.trim().split(' · ')[0] : '',
-      weekday: date ? (date.textContent.trim().split(' · ')[1] || '') : '',
+      date: dateText.split(' · ')[0] || '',
+      weekday: dateText.split(' · ')[1] || '',
       title: title ? title.textContent.trim() : '',
-      isBeihai: isBeihai
+      isBeihai: isBeihai,
+      parsed: parsed
     });
   });
+
+  function isTodayInRange() {
+    if (rangeStart === null || rangeEnd === null) return false;
+    var now = new Date();
+    var t = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+    return t >= rangeStart && t <= rangeEnd;
+  }
+
+  function loadCachedDay() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      var n = parseInt(raw, 10);
+      if (n >= 1 && n <= totalDays) return n;
+    } catch (e) {}
+    return null;
+  }
+
+  function saveCachedDay(day) {
+    try { localStorage.setItem(STORAGE_KEY, String(day)); } catch (e) {}
+  }
+
+  function resolveInitialDay() {
+    // 1) System date matches a schedule day
+    if (isTodayInRange()) {
+      var matched = dateToDay[todayKey()];
+      if (matched) return matched;
+    }
+    // 2) Outside range → local cache
+    var cached = loadCachedDay();
+    if (cached) return cached;
+    // 3) Default D1
+    return 1;
+  }
 
   function renderSelector() {
     selector.innerHTML = '';
@@ -376,8 +453,14 @@
       }
     });
     renderSelector();
+    saveCachedDay(day);
+
+    var active = items[day - 1];
+    var loc = active && active.getAttribute('data-location');
+    if (loc && typeof window.setBackgroundLocation === 'function') {
+      window.setBackgroundLocation(loc);
+    }
   }
 
-  // Initialize with D1
-  selectDay(1);
+  selectDay(resolveInitialDay());
 })();
