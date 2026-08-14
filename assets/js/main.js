@@ -440,14 +440,12 @@
       selector.appendChild(btn);
     }
 
-    // Keep the active chip away from the right-edge FAB on mobile
+    // Horizontal-only: keep active chip centered in the strip (avoid page jump)
     var activeBtn = selector.querySelector('.day-btn.active');
-    if (activeBtn && typeof activeBtn.scrollIntoView === 'function') {
-      try {
-        activeBtn.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
-      } catch (e) {
-        activeBtn.scrollIntoView(false);
-      }
+    if (activeBtn && selector.scrollWidth > selector.clientWidth) {
+      var target =
+        activeBtn.offsetLeft - (selector.clientWidth - activeBtn.offsetWidth) / 2;
+      selector.scrollLeft = Math.max(0, target);
     }
   }
 
