@@ -34,7 +34,7 @@
   background-color: var(--bg);
   background-repeat: no-repeat;
 }
-.bg-media video {
+.bg-media-image {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -42,6 +42,9 @@
   object-fit: cover;
   object-position: center;
   /* Never stretch: cover crops to fill while preserving aspect ratio */
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 .bg-media-overlay {
   position: absolute;
