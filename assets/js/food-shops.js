@@ -1,10 +1,8 @@
 // === Food shop panel (synced with schedule day / location) ===
 (function() {
-  function meituanUrl(name, area, poiId) {
-    if (poiId) {
-      return 'https://www.meituan.com/meishi/' + poiId + '/';
-    }
-    return 'https://i.meituan.com/s?q=' + encodeURIComponent(area + ' ' + name);
+  function shopUrl(shop, area) {
+    if (shop.url) return shop.url;
+    return 'https://i.meituan.com/s?q=' + encodeURIComponent(area + ' ' + shop.name);
   }
 
   var foodByLocation = {
@@ -13,13 +11,48 @@
       icon: '🍜',
       area: '阳朔西街',
       shops: [
-        { name: '张老七高汤螺蛳粉', tag: '螺蛳粉', desc: '西街附近 · 高汤原味' },
-        { name: '町奶奶酱汁臭豆腐', tag: '小吃', desc: '西街附近 · 现炸现拌' },
-        { name: '花鸿喜客', tag: '粤菜', desc: '西街附近 · 本地风味' },
-        { name: '苏姐糖水', tag: '糖水', desc: '西街附近 · 广式甜品' },
-        { name: '瘦子米粉', tag: '米粉', desc: '西街附近 · 城中路老店' },
-        { name: '月下茶白', tag: '奶茶', desc: '西街附近 · 云顶伏见白桃' },
-        { name: '柴火叉烧菠萝包', tag: '烘焙', desc: '西街附近 · 柴火烤制' }
+        {
+          name: '张老七高汤螺蛳粉',
+          tag: '螺蛳粉',
+          desc: '兰花路29号 · 18278300990',
+          url: 'http://dpurl.cn/WIeumMFz'
+        },
+        {
+          name: '町奶奶酱汁炸豆腐（西街店）',
+          tag: '小吃',
+          desc: '城中路18号 · 15877151141',
+          url: 'http://dpurl.cn/ylgFzkCz'
+        },
+        {
+          name: '花鸿喜客·地道桂林菜',
+          tag: '桂菜',
+          desc: '抗战路安置地 · 13317830911',
+          url: 'http://dpurl.cn/ej6e99nz'
+        },
+        {
+          name: '苏姐糖水铺',
+          tag: '糖水',
+          desc: '西街附近 · 美团外卖',
+          url: 'http://dpurl.cn/OWxwu9Mz'
+        },
+        {
+          name: '瘦子桂林米粉店（总店）',
+          tag: '米粉',
+          desc: '城中路22号 · 西街步行可达',
+          url: 'http://dpurl.cn/RKzXWGVz'
+        },
+        {
+          name: '月下茶白（西街步行街店）',
+          tag: '奶茶',
+          desc: '西街74号 · 17777385447',
+          url: 'http://dpurl.cn/b7rnP9uz'
+        },
+        {
+          name: '北部湾一哥柴火叉烧菠萝包',
+          tag: '烘焙',
+          desc: '城中城12号 · 13763525671',
+          url: 'http://dpurl.cn/0QSBaKaz'
+        }
       ]
     },
     longji: {
@@ -74,7 +107,7 @@
       var li = document.createElement('li');
       var a = document.createElement('a');
       a.className = 'food-shop-item';
-      a.href = meituanUrl(shop.name, area, shop.poiId);
+      a.href = shopUrl(shop, area);
       a.target = '_blank';
       a.rel = 'noopener noreferrer';
       a.innerHTML =
@@ -89,7 +122,6 @@
 
   window.updateFoodPanel = renderFoodPanel;
 
-  // Sync with day already selected by main.js (may differ from D1 if cached)
   var visible = document.querySelector('.timeline-item:not(.hidden)');
   var initLoc = visible && visible.getAttribute('data-location');
   renderFoodPanel(initLoc || 'yangshuo');
