@@ -17,7 +17,7 @@
   <script>
     // App version gate: bump this string whenever a hard refresh of assets is required.
     // Same version → keep cache. Changed version → clear Cache Storage and reload once.
-    window.TRIPO_APP_VERSION = '20260814e';
+    window.TRIPO_APP_VERSION = '20260817e';
     (function () {
       var APP_VERSION = window.TRIPO_APP_VERSION;
       var KEY = 'tripo-app-version';
@@ -83,7 +83,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
         crossorigin=""/>
-  <link rel="stylesheet" href="assets/css/style.css?v=20260814e">
+  <link rel="stylesheet" href="assets/css/style.css?v=20260817e">
 </head>
 <body>
   <div class="bg-media" id="bgMedia" aria-hidden="true">
@@ -148,7 +148,7 @@
       </div>
       <div class="card">
         <p style="font-size: 0.95rem; line-height: 1.8;">
-          本次行程以<strong>桂林山水</strong>为核心，先赴<strong>阳朔</strong>体验漓江精华与十里画廊，并特别安排<strong>"千里江山图"主题汉服约拍</strong>，再前往<strong>龙脊梯田</strong>感受大地指纹的壮阔，随后回<strong>桂林市区</strong>打卡经典地标，行程尾声从桂林乘高铁直达<strong>北海</strong>，体验银滩细沙、侨港美食与海滨日落，山水与海滨无缝衔接。
+          本次行程以<strong>桂林山水</strong>为核心，先赴<strong>阳朔</strong>体验漓江精华与十里画廊，并特别安排<strong>"千里江山图"主题汉服约拍</strong>。阳朔2日游结束后于 D3 在<strong>神州租车·阳朔自助点</strong>取车自驾，经龙脊梯田盘山路前往<strong>金坑大寨</strong>，D5 赴北海前于<strong>桂林北站服务点</strong>还车。随后回<strong>桂林市区</strong>打卡经典地标，行程尾声乘高铁直达<strong>北海</strong>，体验银滩细沙、侨港美食与海滨日落，山水与海滨无缝衔接。
         </p>
       </div>
     </section>
@@ -162,6 +162,7 @@
 
       <div class="schedule-wrapper">
         <div class="day-selector" id="daySelector"></div>
+        <div class="schedule-main">
         <div class="timeline" id="timeline">
 
         <!-- Day 1 -->
@@ -171,20 +172,20 @@
             <div class="timeline-header">
               <div>
                 <div class="timeline-date">9月5日 · 周六</div>
-                <div class="timeline-title">抵达阳朔 · 兴坪古镇</div>
-                <div class="timeline-location">📍 阳朔站 → 阳朔</div>
+                <div class="timeline-title">抵达阳朔 · 西街休整</div>
+                <div class="timeline-location">📍 阳朔站 → 西街附近</div>
               </div>
               <span class="timeline-badge badge-guilin">桂林</span>
             </div>
             <ul class="schedule-list">
-              <li><span class="schedule-time">中午</span><span class="schedule-detail">高铁直达<strong>阳朔站</strong>，出站后乘坐大巴或打车前往阳朔县城（约30分钟），一路喀斯特峰林渐入佳境</span></li>
-              <li><span class="schedule-time">下午</span><span class="schedule-detail">抵达阳朔，游览<strong>兴坪古镇</strong>，在20元人民币背景观景台拍照留念，感受千年古镇古朴韵味。可乘船游览<strong>漓江兴坪段</strong>，打卡黄布倒影</span></li>
-              <li><span class="schedule-time">晚上</span><span class="schedule-detail">逛<strong>阳朔西街</strong>，品尝啤酒鱼、田螺酿、荔浦芋扣肉等特色美食，体验中西交融的市井风情</span></li>
+              <li><span class="schedule-time">中午</span><span class="schedule-detail">高铁抵达<strong>阳朔站</strong>，出站后<strong>打车</strong>前往<strong>西街附近酒店</strong>（约30分钟），办理入住、放下行李</span></li>
+              <li><span class="schedule-time">下午</span><span class="schedule-detail">出门吃午饭，回酒店休息调整，为 D2 约拍养精蓄锐</span></li>
+              <li><span class="schedule-time">晚上</span><span class="schedule-detail">再次前往<strong>阳朔西街</strong>，晚餐后逛西街，感受中西交融的市井风情<em>（啤酒鱼、田螺酿、荔浦芋扣肉）</em></span></li>
             </ul>
             <div class="timeline-tags">
-              <span class="tag">🏨 住宿：阳朔遇龙河畔民宿</span>
-              <span class="tag">🍜 晚餐：啤酒鱼</span>
-              <span class="tag">🏞️ 兴坪古镇</span>
+              <span class="tag">🏨 住宿：西街附近酒店</span>
+              <span class="tag">🍜 晚餐：西街</span>
+              <span class="tag">😴 休整为主</span>
             </div>
           </div>
         </div>
@@ -196,8 +197,8 @@
             <div class="timeline-header">
               <div>
                 <div class="timeline-date">9月6日 · 周日</div>
-                <div class="timeline-title">遇龙河竹筏 · 千里江山约拍</div>
-                <div class="timeline-location">📍 阳朔</div>
+                <div class="timeline-title">千里江山约拍 · 全天</div>
+                <div class="timeline-location">📍 阳朔 · 约拍门店 → 拍摄点</div>
               </div>
               <div>
                 <span class="timeline-badge badge-guilin" style="margin-right:0.3rem">桂林</span>
@@ -205,9 +206,9 @@
               </div>
             </div>
             <ul class="schedule-list">
-              <li><span class="schedule-time">上午</span><span class="schedule-detail">抢早体验<strong>遇龙河人工竹筏</strong>漂流（推荐水厄底码头），过9个小水坝激起白浪，两岸青山倒映水中<em>（竹筏约¥160-200/筏，建议8点前出发）</em></span></li>
-              <li><span class="schedule-time">下午</span><span class="schedule-detail">租小电驴骑行<strong>十里画廊</strong>，沿途打卡月亮山、大榕树，网红咖啡店休憩拍照<em>（租车约¥30-50/天）</em></span></li>
-              <li><span class="schedule-time">傍晚</span><span class="schedule-detail"><strong>「望山·千里江山图」主题约拍</strong> — 山巅汉服/战国袍拍摄，含妆造+摄影师跟拍2小时<em>（需提前3天预约）</em></span></li>
+              <li><span class="schedule-time">早上</span><span class="schedule-detail">前往约拍门店，开始<strong>选衣、妆造</strong>，除用餐外基本全天处于约拍状态<em>（需提前3天预约，勿迟到）</em></span></li>
+              <li><span class="schedule-time">白天</span><span class="schedule-detail"><strong>「望山·千里江山图」主题约拍</strong> — 山巅汉服/战国袍拍摄，含妆造+摄影师跟拍，流程持续至傍晚</span></li>
+              <li><span class="schedule-time">晚上</span><span class="schedule-detail">约拍结束后归还衣服，<strong>晚餐</strong>，之后方可自由安排<em>（门店要求22:00前归还）</em></span></li>
             </ul>
 
             <!-- Photo Session Detail Card -->
@@ -256,10 +257,9 @@
             </div>
 
             <div class="timeline-tags">
-              <span class="tag">🏨 住宿：阳朔</span>
+              <span class="tag">🏨 住宿：西街附近酒店</span>
               <span class="tag highlight">📸 千里江山约拍</span>
-              <span class="tag">🚣 遇龙河竹筏</span>
-              <span class="tag">🛵 十里画廊骑行</span>
+              <span class="tag">💄 全天妆造拍摄</span>
             </div>
           </div>
         </div>
@@ -277,16 +277,16 @@
               <span class="timeline-badge badge-guilin">桂林</span>
             </div>
             <ul class="schedule-list">
-              <li><span class="schedule-time">上午</span><span class="schedule-detail">早起可先游览<strong>银子岩</strong>溶洞（洞内常年18-20°C，"游了银子岩，一世不缺钱"），或直接出发</span></li>
-              <li><span class="schedule-time">中午</span><span class="schedule-detail">从阳朔出发包车前往<strong>龙脊梯田</strong>（经桂林中转，车程约3-4小时）。山路弯多，建议备好晕车药<em>（SUV为佳，盘山路24km弯多坡陡）</em></span></li>
-              <li><span class="schedule-time">下午</span><span class="schedule-detail">抵达景区，游览<strong>金坑大寨</strong>或<strong>平安壮寨</strong>，在高处俯瞰"大地指纹"层层叠翠。9月梯田灌水后层次分明，云雾缭绕如仙境</span></li>
+              <li><span class="schedule-time">上午</span><span class="schedule-detail"><strong>酒店退房</strong>，行李装车，前往<strong>神州租车·阳朔自助点</strong>取车（旅游停车场，24H自助取还）<em>（需携带身份证+驾驶证原件+信用卡）</em></span></li>
+              <li><span class="schedule-time">中午</span><span class="schedule-detail">取车后自驾前往<strong>龙脊梯田</strong>（阳朔→龙脊约155km/3.5h，经 G321→G65 包茂高速）。盘山路弯多坡陡，建议 SUV 并备好晕车药</span></li>
+              <li><span class="schedule-time">下午</span><span class="schedule-detail">抵达景区，先至<strong>梯田观景民宿办理入住</strong>，随后午餐，回酒店休息</span></li>
+              <li><span class="schedule-time">傍晚</span><span class="schedule-detail">休息好后出门逛景区，游览<strong>金坑大寨</strong>或<strong>平安壮寨</strong>，俯瞰"大地指纹"层层叠翠<em>（9月灌水后层次分明，云雾缭绕）</em></span></li>
               <li><span class="schedule-time">晚餐</span><span class="schedule-detail">品尝高山土鸡火锅、腊肉炒笋、竹筒饭，饮一杯阿婆自酿米酒</span></li>
-              <li><span class="schedule-time">夜晚</span><span class="schedule-detail">入住梯田景区内<strong>观景民宿</strong>，推窗即可看星空与梯田灯光交织</span></li>
             </ul>
             <div class="timeline-tags">
               <span class="tag">🏨 住宿：龙脊梯田景区民宿</span>
-              <span class="tag">🪨 银子岩（可选）</span>
-              <span class="tag">🥾 徒步</span>
+              <span class="tag highlight">🚗 神州租车取车</span>
+              <span class="tag">🥾 傍晚逛景区</span>
               <span class="tag">⭐ 星空</span>
             </div>
           </div>
@@ -306,13 +306,15 @@
             </div>
             <ul class="schedule-list">
               <li><span class="schedule-time">清晨</span><span class="schedule-detail">早起观赏<strong>龙脊梯田日出</strong>，云雾缠绕梯田群山，拍摄绝美田园大片</span></li>
-              <li><span class="schedule-time">上午</span><span class="schedule-detail">返回桂林市区（车程约2小时），入住市区酒店（推荐东西巷或正阳步行街附近）</span></li>
-              <li><span class="schedule-time">下午</span><span class="schedule-detail">前往<strong>象鼻山公园</strong>打卡桂林城徽，随后游览<strong>伏波山</strong>、<strong>叠彩山</strong>，登顶俯瞰桂林全景</span></li>
+              <li><span class="schedule-time">上午</span><span class="schedule-detail">景区内自由活动，可补拍梯田晨景或回酒店补觉</span></li>
+              <li><span class="schedule-time">中午</span><span class="schedule-detail">午餐后<strong>酒店退房</strong>，自驾返回桂林市区（龙脊→市区约95km/2h）</span></li>
+              <li><span class="schedule-time">下午</span><span class="schedule-detail">抵达市区后先<strong>办理酒店入住</strong>，放下行李再出门。游览<strong>象鼻山公园</strong>，随后打卡<strong>伏波山</strong>、<strong>叠彩山</strong></span></li>
               <li><span class="schedule-time">傍晚</span><span class="schedule-detail">漫步<strong>东西巷</strong>、<strong>正阳步行街</strong>，品尝地道桂林米粉、椿记烧鹅</span></li>
               <li><span class="schedule-time">夜间</span><span class="schedule-detail">乘船夜游<strong>两江四湖</strong>，近距离欣赏<strong>日月双塔</strong>璀璨夜景<em>（船票约¥85/人，建议提前线上预订）</em></span></li>
             </ul>
             <div class="timeline-tags">
               <span class="tag">🏨 住宿：桂林市区</span>
+              <span class="tag highlight">🚗 自驾龙脊→市区</span>
               <span class="tag">🌅 龙脊日出</span>
               <span class="tag">🏔️ 象鼻山·伏波山</span>
               <span class="tag">🚢 两江四湖夜游</span>
@@ -327,8 +329,8 @@
             <div class="timeline-header">
               <div>
                 <div class="timeline-date">9月9日 · 周三</div>
-                <div class="timeline-title">桂林市区 · 高铁赴北海</div>
-                <div class="timeline-location">📍 桂林 → 北海</div>
+                <div class="timeline-title">酒店休整 · 还车赴北海</div>
+                <div class="timeline-location">📍 桂林市区 → 北海</div>
               </div>
               <div>
                 <span class="timeline-badge badge-guilin" style="margin-right:0.3rem">桂林</span>
@@ -336,14 +338,15 @@
               </div>
             </div>
             <ul class="schedule-list">
-              <li><span class="schedule-time">上午</span><span class="schedule-detail">游览<strong>芦笛岩</strong>溶洞（国宾洞，接待过尼克松等百余位元首），或前往<strong>独秀峰·王城景区</strong>（靖江王城，明代藩王府邸）</span></li>
-              <li><span class="schedule-time">中午</span><span class="schedule-detail">桂林米粉探店（推荐老东江米粉、崇善米粉），采购桂林特产（桂花糕、罗汉果、辣椒酱），确认行李无误</span></li>
-              <li><span class="schedule-time">下午</span><span class="schedule-detail">从<strong>桂林北站</strong>乘高铁<strong>直达</strong>北海（全程约4-4.5小时，无需中转）：<br><strong>推荐车次</strong> D1779 桂林北14:31 → 北海19:00，约4小时29分<em>（¥200起）</em></span></li>
+              <li><span class="schedule-time">上午</span><span class="schedule-detail">取消外出行程，在<strong>市区酒店</strong>休整、收拾行李，为转场北海养精蓄锐</span></li>
+              <li><span class="schedule-time">中午</span><span class="schedule-detail"><strong>酒店退房</strong>，驾车前往<strong>神州租车·桂林北站服务点</strong>还车（东广场5号停车场，24H）<em>（还车+验车预留30-40分钟）</em></span></li>
+              <li><span class="schedule-time">下午</span><span class="schedule-detail">还车后步行至<strong>桂林北站</strong>，乘高铁<strong>直达</strong>北海（全程约4-4.5小时）：<br><strong>推荐车次</strong> D1779 桂林北14:31 → 北海19:00，约4小时29分<em>（¥200起）</em></span></li>
               <li><span class="schedule-time">傍晚</span><span class="schedule-detail">抵达北海站，入住银滩附近酒店，散步<strong>北海银滩</strong>感受细腻白沙与海风</span></li>
             </ul>
             <div class="timeline-tags">
               <span class="tag">🏨 住宿：北海银滩附近</span>
-              <span class="tag">🪨 芦笛岩</span>
+              <span class="tag highlight">🚗 神州租车还车·桂林北站</span>
+              <span class="tag">😴 酒店休整</span>
               <span class="tag">🚄 高铁直达约4.5h</span>
               <span class="tag">🏖️ 银滩夜景</span>
             </div>
@@ -457,6 +460,21 @@
         </div>
 
       </div>
+
+        <aside class="food-panel" id="foodPanel" aria-label="当地美食推荐">
+          <div class="food-panel-card">
+            <div class="food-panel-header">
+              <span class="food-panel-icon" id="foodPanelIcon">🍜</span>
+              <div>
+                <div class="food-panel-title" id="foodPanelTitle">阳朔西街 · 美食推荐</div>
+                <div class="food-panel-sub" id="foodPanelSub">西街附近 · 点击跳转美团</div>
+              </div>
+            </div>
+            <ul class="food-shop-list" id="foodShopList"></ul>
+            <p class="food-panel-empty hidden" id="foodPanelEmpty">暂无收录店铺，欢迎补充</p>
+          </div>
+        </aside>
+        </div>
       </div>
     </section>
 
@@ -482,17 +500,19 @@
                 fill="#e3f2fd" stroke="#90caf9" stroke-width="1" opacity="0.5"/>
           <text x="630" y="200" font-size="11" fill="#64b5f6" opacity="0.6">北部湾</text>
 
-          <!-- Route lines (new order: 阳朔→龙脊→市区→北海) -->
-          <!-- D1-D3: 阳朔 (local, 起点直达阳朔站) -->
-          <circle cx="350" cy="200" r="18" fill="none" stroke="#0d9488" stroke-width="2" stroke-dasharray="3 2" opacity="0.5"/>
-          <!-- D4: 阳朔→龙脊 -->
-          <path d="M 350 200 Q 300 150 250 110" fill="none" stroke="#0d9488" stroke-width="3" stroke-dasharray="6 3" opacity="0.7"/>
-          <!-- D5: 龙脊→桂林市区 -->
-          <path d="M 250 110 Q 280 130 320 150" fill="none" stroke="#0d9488" stroke-width="3" stroke-dasharray="6 3" opacity="0.7"/>
-          <!-- D6: 桂林市区 (local) -->
+          <!-- Route lines (阳朔→龙脊→市区→北海; D3-D5 神州租车自驾) -->
+          <!-- D1-D2: 阳朔 (local) -->
+          <circle cx="350" cy="200" r="18" fill="none" stroke="#a855f7" stroke-width="2" stroke-dasharray="3 2" opacity="0.5"/>
+          <!-- D3-D5: 神州租车自驾段 -->
+          <path d="M 350 200 Q 300 150 250 110" fill="none" stroke="#2563eb" stroke-width="3.5" stroke-dasharray="6 3" opacity="0.85"/>
+          <path d="M 250 110 Q 280 130 320 150" fill="none" stroke="#2563eb" stroke-width="3.5" stroke-dasharray="6 3" opacity="0.85"/>
+          <!-- D5: 还车@桂林北站 → 高铁赴北海 -->
           <circle cx="320" cy="150" r="18" fill="none" stroke="#0d9488" stroke-width="2" stroke-dasharray="3 2" opacity="0.5"/>
-          <!-- D7: 桂林→北海 (高铁直达) -->
           <path d="M 320 150 Q 440 230 530 300" fill="none" stroke="#f59e0b" stroke-width="3" stroke-dasharray="6 3" opacity="0.7"/>
+          <!-- 取车标记 -->
+          <text x="365" y="188" font-size="9" fill="#2563eb" font-weight="600">🚗取</text>
+          <!-- 还车标记 -->
+          <text x="335" y="138" font-size="9" fill="#2563eb" font-weight="600">🚗还</text>
 
           <!-- Location markers -->
           <!-- 桂林市区 -->
@@ -520,14 +540,44 @@
           <text x="530" y="340" text-anchor="middle" font-size="9" fill="#6b8e8a">银滩·老街·侨港</text>
 
           <!-- Legend -->
-          <rect x="20" y="350" width="220" height="40" fill="rgba(255,255,255,0.8)" rx="8" stroke="#d4e5e1"/>
-          <line x1="35" y1="365" x2="65" y2="365" stroke="#0d9488" stroke-width="3" stroke-dasharray="6 3"/>
-          <text x="72" y="369" font-size="10" fill="#1a3c3a">桂林段路线</text>
-          <line x1="35" y1="380" x2="65" y2="380" stroke="#f59e0b" stroke-width="3" stroke-dasharray="6 3"/>
-          <text x="72" y="384" font-size="10" fill="#1a3c3a">桂林→北海高铁</text>
-          <circle cx="155" cy="367" r="4" fill="#a855f7"/>
-          <text x="165" y="371" font-size="10" fill="#1a3c3a">约拍地</text>
+          <rect x="20" y="340" width="280" height="52" fill="rgba(255,255,255,0.8)" rx="8" stroke="#d4e5e1"/>
+          <line x1="35" y1="355" x2="65" y2="355" stroke="#2563eb" stroke-width="3.5" stroke-dasharray="6 3"/>
+          <text x="72" y="359" font-size="10" fill="#1a3c3a">神州租车自驾（D3-D5）</text>
+          <line x1="35" y1="372" x2="65" y2="372" stroke="#f59e0b" stroke-width="3" stroke-dasharray="6 3"/>
+          <text x="72" y="376" font-size="10" fill="#1a3c3a">桂林→北海高铁</text>
+          <circle cx="195" cy="357" r="4" fill="#a855f7"/>
+          <text x="205" y="361" font-size="10" fill="#1a3c3a">约拍地</text>
+          <circle cx="255" cy="372" r="4" fill="#0d9488"/>
+          <text x="265" y="376" font-size="10" fill="#1a3c3a">市区游览</text>
         </svg>
+      </div>
+
+      <!-- 神州租车方案 -->
+      <div class="rental-plan card" id="rental">
+        <h3 style="font-size: 1.1rem; margin-bottom: 0.8rem; color: var(--ink);">🚗 神州租车 · 取还车方案</h3>
+        <div class="rental-grid">
+          <div class="rental-card pickup">
+            <div class="rental-label">取车 · D3 9/7</div>
+            <div class="rental-store">阳朔自助点</div>
+            <div class="rental-addr">阳朔县阳朔旅游停车场（近西街，24H自助取还）</div>
+            <div class="rental-meta">📞 18448256273 · D3 退房后取车</div>
+          </div>
+          <div class="rental-card return">
+            <div class="rental-label">还车 · D5 9/9</div>
+            <div class="rental-store">桂林北站服务点</div>
+            <div class="rental-addr">叠彩区桂林北站东广场5号停车场（24H）</div>
+            <div class="rental-meta">📞 18448230757 · D5 中午退房后还车</div>
+          </div>
+        </div>
+        <div class="rental-summary">
+          <span><strong>租期</strong> 约2.5天（D3 取车 → D5 中午还车）</span>
+          <span><strong>推荐车型</strong> SUV（哈弗H6/ix35等，龙脊盘山路）</span>
+          <span><strong>预估费用</strong> ¥900-1100<em>（含异地还车+尊享保障，以App订单页为准）</em></span>
+          <span><strong>自驾里程</strong> 约350km（阳朔→龙脊155km + 龙脊→市区95km + 市区100km）</span>
+        </div>
+        <p class="rental-note">
+          ⚠️ 取车需<strong>身份证+驾驶证原件+信用卡</strong>（驾龄≥6个月）；D3 退房后取车、D5 中午退房后还车；还车点步行可达桂林北站。预订：<a href="https://www.zuche.com/" target="_blank" rel="noopener">神州租车官网/App</a> · 客服 400-616-6666
+        </p>
       </div>
 
       <!-- Interactive Map -->
@@ -553,6 +603,15 @@
       <h3 id="routes" style="font-size: 1.1rem; margin: 1.5rem 0 0.8rem; color: var(--ink);">🧭 各段路线规划（点击查看详细导航）</h3>
       <div class="map-route-list">
 
+        <div class="route-item rental-route">
+          <div class="route-num">🚗</div>
+          <div class="route-content">
+            <div class="route-name">神州租车取车 · 阳朔自助点</div>
+            <div class="route-desc">D3 退房后 · 阳朔旅游停车场 · 24H自助取还 · 取车即出发龙脊</div>
+          </div>
+          <a class="route-link" href="https://uri.amap.com/navigation?to=110.4915,24.7695,神州租车阳朔自助点&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">高德导航 →</a>
+        </div>
+
         <div class="route-item">
           <div class="route-num">1</div>
           <div class="route-content">
@@ -571,44 +630,53 @@
           <a class="route-link" href="https://uri.amap.com/navigation?from=110.4880,24.7720,阳朔西街&to=110.4150,24.7650,遇龙河十里画廊&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">高德导航 →</a>
         </div>
 
-        <div class="route-item">
+        <div class="route-item rental-route">
           <div class="route-num">3</div>
           <div class="route-content">
-            <div class="route-name">阳朔 → 龙脊梯田</div>
-            <div class="route-desc">约3-4小时车程 · D3经桂林中转前往梯田（盘山路备晕车药）</div>
+            <div class="route-name">阳朔 → 龙脊梯田（神州租车自驾）</div>
+            <div class="route-desc">约155km/3.5h · D3取车后北上 · 经 G321→G65 包茂高速 · 盘山路备晕车药</div>
           </div>
-          <a class="route-link" href="https://uri.amap.com/navigation?from=110.4850,24.7700,阳朔&to=110.1039,25.7936,龙脊梯田&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">高德导航 →</a>
+          <a class="route-link" href="https://uri.amap.com/navigation?from=110.4915,24.7695,阳朔自助点&to=110.1039,25.7936,龙脊梯田金坑大寨&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">高德导航 →</a>
         </div>
 
-        <div class="route-item">
+        <div class="route-item rental-route">
           <div class="route-num">4</div>
           <div class="route-content">
-            <div class="route-name">龙脊梯田 → 桂林市区</div>
-            <div class="route-desc">约2小时车程 · D4看完日出后返回市区</div>
+            <div class="route-name">龙脊梯田 → 桂林市区（神州租车自驾）</div>
+            <div class="route-desc">约95km/2h · D4看完日出后返回 · 继续用车游览象鼻山等</div>
           </div>
           <a class="route-link" href="https://uri.amap.com/navigation?from=110.1039,25.7936,龙脊梯田&to=110.2990,25.2700,桂林东西巷&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">高德导航 →</a>
         </div>
 
-        <div class="route-item">
+        <div class="route-item rental-route">
           <div class="route-num">5</div>
           <div class="route-content">
-            <div class="route-name">桂林市区 → 象鼻山 → 伏波山 → 叠彩山 → 芦笛岩</div>
-            <div class="route-desc">D4-D5市区深度游览 · 打车/公交</div>
+            <div class="route-name">桂林市区酒店 → 神州租车还车·桂林北站</div>
+            <div class="route-desc">D5 中午退房后还车 @ 北站东广场5号停车场 → 14:31乘D1779赴北海</div>
           </div>
-          <a class="route-link" href="https://uri.amap.com/navigation?from=110.2930,25.2620,象鼻山&to=110.2480,25.2950,芦笛岩&via=110.2990,25.2690,伏波山|110.3000,25.2760,叠彩山&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">高德导航 →</a>
+          <a class="route-link" href="https://uri.amap.com/navigation?from=110.2990,25.2700,桂林东西巷&to=110.3120,25.3285,神州租车桂林北站&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">高德导航 →</a>
+        </div>
+
+        <div class="route-item">
+          <div class="route-num">6</div>
+          <div class="route-content">
+            <div class="route-name">桂林市区 → 象鼻山 → 伏波山 → 叠彩山</div>
+            <div class="route-desc">D4下午市区深度游览 · 神州租车自驾或步行</div>
+          </div>
+          <a class="route-link" href="https://uri.amap.com/navigation?from=110.2930,25.2620,象鼻山&to=110.3000,25.2760,叠彩山&via=110.2990,25.2690,伏波山&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">高德导航 →</a>
         </div>
 
         <div class="route-item beihai-route">
-          <div class="route-num">6</div>
+          <div class="route-num">7</div>
           <div class="route-content">
             <div class="route-name">桂林北站 → 北海站（高铁直达）</div>
-            <div class="route-desc">约4-4.5小时 · 无需中转 · D5下午出发 · D1779（14:31→19:00）· ¥200起</div>
+            <div class="route-desc">约4-4.5小时 · 还车后乘高铁 · D5下午 · D1779（14:31→19:00）· ¥200起</div>
           </div>
           <a class="route-link" href="https://uri.amap.com/navigation?from=110.3100,25.3300,桂林北站&to=109.1200,21.4800,北海站&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">高德导航 →</a>
         </div>
 
         <div class="route-item beihai-route">
-          <div class="route-num">7</div>
+          <div class="route-num">8</div>
           <div class="route-content">
             <div class="route-name">北海站 → 银滩 → 老街 → 侨港 → 冠头岭</div>
             <div class="route-desc">D6-D8北海市区游览路线 · 打车/公交</div>
@@ -622,8 +690,13 @@
       <div class="map-route-info">
         <div class="route-info-card">
           <div class="route-icon">🚗</div>
-          <div class="route-label">桂林段自驾/包车</div>
-          <div class="route-value">~500 km</div>
+          <div class="route-label">神州租车自驾</div>
+          <div class="route-value">~350 km</div>
+        </div>
+        <div class="route-info-card">
+          <div class="route-icon">📅</div>
+          <div class="route-label">租期 D3-D5</div>
+          <div class="route-value">2.5 天</div>
         </div>
         <div class="route-info-card">
           <div class="route-icon">🚄</div>
@@ -677,6 +750,9 @@
           <div class="checklist-item" data-item="bank-card"><span class="check-pair"><input type="checkbox" class="check-blue" id="bank-card-blue" data-item="bank-card" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="bank-card-pink" data-item="bank-card" data-who="pink" aria-label="粉方"></span><span class="item-label">银行卡/信用卡</span></div>
           <div class="checklist-item" data-item="cash"><span class="check-pair"><input type="checkbox" class="check-blue" id="cash-blue" data-item="cash" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="cash-pink" data-item="cash" data-who="pink" aria-label="粉方"></span><span class="item-label">现金<span class="item-note">（山区/小摊需备用）</span></span></div>
           <div class="checklist-item" data-item="phone-case"><span class="check-pair"><input type="checkbox" class="check-blue" id="phone-case-blue" data-item="phone-case" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="phone-case-pink" data-item="phone-case" data-who="pink" aria-label="粉方"></span><span class="item-label">手机+充电宝+充电线</span></div>
+          <div class="checklist-item" data-item="driver-license"><span class="check-pair"><input type="checkbox" class="check-blue" id="driver-license-blue" data-item="driver-license" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="driver-license-pink" data-item="driver-license" data-who="pink" aria-label="粉方"></span><span class="item-label">驾驶证原件<span class="item-note">（神州租车取车必备，驾龄≥6个月）</span></span></div>
+          <div class="checklist-item" data-item="credit-card"><span class="check-pair"><input type="checkbox" class="check-blue" id="credit-card-blue" data-item="credit-card" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="credit-card-pink" data-item="credit-card" data-who="pink" aria-label="粉方"></span><span class="item-label">信用卡<span class="item-note">（租车预授权押金）</span></span></div>
+          <div class="checklist-item" data-item="rental-booking"><span class="check-pair"><input type="checkbox" class="check-blue" id="rental-booking-blue" data-item="rental-booking" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="rental-booking-pink" data-item="rental-booking" data-who="pink" aria-label="粉方"></span><span class="item-label">神州租车预订确认<span class="item-note">（阳朔取·桂林北站还·SUV）</span></span></div>
           <div class="checklist-item" data-item="tickets"><span class="check-pair"><input type="checkbox" class="check-blue" id="tickets-blue" data-item="tickets" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="tickets-pink" data-item="tickets" data-who="pink" aria-label="粉方"></span><span class="item-label">已预订门票/船票截图</span></div>
         </div>
 
@@ -940,6 +1016,10 @@
             <span class="src-title">酷酷酷桃，2026阳朔写真6家真实门店全测评。千里江山山巅套餐899-2599元，含预约避坑攻略。</span>
             <a class="src-url" href="https://m.toutiao.com/group/7668222385526604342/" target="_blank" rel="noopener">https://m.toutiao.com/group/7668222385526604342/</a>
           </li>
+          <li id="cite-9">
+            <span class="src-title">神州租车，桂林网点查询。桂林9家网点含阳朔自助点（24H）、桂林北站服务点（24H）、阳朔高铁站自助点等。</span>
+            <a class="src-url" href="https://guilin.zuche.com/" target="_blank" rel="noopener">https://guilin.zuche.com/</a>
+          </li>
         </ol>
       </div>
     </footer>
@@ -950,8 +1030,9 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
           integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
           crossorigin=""></script>
-  <script src="assets/js/bg-media.js?v=20260814e"></script>
-  <script src="assets/js/main.js?v=20260814e"></script>
+  <script src="assets/js/bg-media.js?v=20260817e"></script>
+  <script src="assets/js/main.js?v=20260817e"></script>
+  <script src="assets/js/food-shops.js?v=20260817e"></script>
 
   <!-- Floating Table of Contents -->
   <div class="floating-toc" id="floatingToc">
@@ -960,6 +1041,7 @@
       <div class="toc-item" data-target="overview"><span class="toc-icon">📋</span>行程总览</div>
       <div class="toc-item" data-target="schedule"><span class="toc-icon">📅</span>详细时间表</div>
       <div class="toc-item" data-target="map"><span class="toc-icon">🗺️</span>在线地图</div>
+      <div class="toc-item" data-target="rental"><span class="toc-icon">🚗</span>神州租车</div>
       <div class="toc-item" data-target="routes"><span class="toc-icon">🧭</span>路线规划导航</div>
       <div class="toc-item" data-target="checklist"><span class="toc-icon">🎒</span>物品清单</div>
       <div class="toc-item" data-target="weather"><span class="toc-icon">🌤️</span>天气预报</div>
@@ -967,7 +1049,7 @@
     </div>
   </div>
 
-  <script src="assets/js/toc.js?v=20260814e"></script>
+  <script src="assets/js/toc.js?v=20260817e"></script>
 
 </body>
 </html>

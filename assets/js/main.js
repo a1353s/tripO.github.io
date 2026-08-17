@@ -8,7 +8,8 @@
       markers: [
         { lat: 25.2622, lng: 110.2909, name: '象鼻山公园', detail: '桂林城徽 · 滨江路' },
         { lat: 25.2700, lng: 110.2950, name: '两江四湖', detail: '夜游游船 · 日月双塔' },
-        { lat: 25.2750, lng: 110.3000, name: '东西巷/正阳步行街', detail: '美食购物 · 桂林米粉' }
+        { lat: 25.2750, lng: 110.3000, name: '东西巷/正阳步行街', detail: '美食购物 · 桂林米粉' },
+        { lat: 25.3285, lng: 110.3120, name: '神州租车·桂林北站', detail: 'D5还车 · 东广场5号停车场 · 24H' }
       ]
     },
     yangshuo: {
@@ -20,7 +21,8 @@
         { lat: 24.7100, lng: 110.4600, name: '十里画廊', detail: '骑行 · 月亮山 · 大榕树' },
         { lat: 24.7900, lng: 110.4200, name: '兴坪古镇', detail: '20元人民币背景 · 黄布倒影' },
         { lat: 24.8200, lng: 110.4500, name: '望山·千里江山约拍点', detail: '山巅汉服拍摄 · 需预约' },
-        { lat: 24.8100, lng: 110.4700, name: '银子岩', detail: '溶洞 · 18-20°C避暑' }
+        { lat: 24.8100, lng: 110.4700, name: '银子岩', detail: '溶洞 · 18-20°C避暑' },
+        { lat: 24.7695, lng: 110.4915, name: '神州租车·阳朔自助点', detail: 'D3取车 · 旅游停车场 · 24H' }
       ]
     },
     longji: {
@@ -175,6 +177,7 @@
   var guilinIcon = createIcon('#0d9488');
   var photoIcon = createIcon('#a855f7');
   var beihaiIcon = createIcon('#f59e0b');
+  var rentalIcon = createIcon('#2563eb');
 
   // Current markers group
   var currentMarkers = L.layerGroup().addTo(map);
@@ -200,6 +203,7 @@
         var icon = guilinIcon;
         if (key === 'beihai') icon = beihaiIcon;
         if (m.name.indexOf('约拍') !== -1 || m.name.indexOf('千里江山') !== -1) icon = photoIcon;
+        if (m.name.indexOf('神州租车') !== -1) icon = rentalIcon;
 
         var marker = L.marker([m.lat, m.lng], { icon: icon })
           .bindPopup('<strong>' + m.name + '</strong><div class="popup-detail">' + m.detail + '</div>');
@@ -209,10 +213,11 @@
       // If overview, draw route polyline
       if (key === 'overview') {
         var routeGroup = L.layerGroup();
-        L.polyline(routePoints, {
-          color: '#0d9488', weight: 3, opacity: 0.6, dashArray: '8 6', lineJoin: 'round'
+        // 神州租车自驾段：阳朔→龙脊→市区
+        L.polyline(routePoints.slice(0, 3), {
+          color: '#2563eb', weight: 4, opacity: 0.75, dashArray: '8 6', lineJoin: 'round'
         }).addTo(routeGroup);
-        // Transit route: 桂林→北海 (高铁直达, using GCJ-02 coords)
+        // Transit route: 桂林→北海 (高铁直达)
         L.polyline(
           [locations.guilin.center, locations.beihai.center],
           { color: '#f59e0b', weight: 3, opacity: 0.6, dashArray: '8 6' }
@@ -806,6 +811,9 @@
     var loc = active && active.getAttribute('data-location');
     if (loc && typeof window.setBackgroundLocation === 'function') {
       window.setBackgroundLocation(loc);
+    }
+    if (loc && typeof window.updateFoodPanel === 'function') {
+      window.updateFoodPanel(loc);
     }
   }
 
