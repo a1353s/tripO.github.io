@@ -65,7 +65,20 @@
       title: '桂林市区 · 美食推荐',
       icon: '🥢',
       area: '桂林市区',
-      shops: []
+      shops: [
+        {
+          name: '老东江米粉（总店）',
+          tag: '米粉',
+          desc: '七星区施家园龙隐路3号 · 13977365800',
+          url: 'http://dpurl.cn/1PpG6hjz'
+        },
+        {
+          name: '江君烤翅（正阳街美食巷店）',
+          tag: '烧烤',
+          desc: '正阳步行街美食巷1楼11号 · 15295986088',
+          url: 'http://dpurl.cn/a4emPhxz'
+        }
+      ]
     },
     beihai: {
       title: '侨港 · 美食推荐',
