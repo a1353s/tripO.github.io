@@ -9,7 +9,8 @@
         { lat: 25.2622, lng: 110.2909, name: '象鼻山公园', detail: '桂林城徽 · 滨江路' },
         { lat: 25.2700, lng: 110.2950, name: '两江四湖', detail: '夜游游船 · 日月双塔' },
         { lat: 25.2750, lng: 110.3000, name: '东西巷/正阳步行街', detail: '美食购物 · 桂林米粉' },
-        { lat: 25.3285, lng: 110.3120, name: '神州租车·桂林北站', detail: 'D5还车 · 东广场5号停车场 · 24H' }
+        { lat: 25.3285, lng: 110.3120, name: '神州租车·桂林北站', detail: 'D5还车 · 东广场5号停车场 · 24H' },
+        { lat: 25.2745, lng: 110.2980, name: '全季桂林象鼻山日月双塔酒店', detail: 'D4-D5 住宿 · 文明路1号' }
       ]
     },
     yangshuo: {
@@ -20,9 +21,10 @@
         { lat: 24.7600, lng: 110.4400, name: '遇龙河竹筏', detail: '水厄底码头 · 人工竹筏' },
         { lat: 24.7100, lng: 110.4600, name: '十里画廊', detail: '骑行 · 月亮山 · 大榕树' },
         { lat: 24.7900, lng: 110.4200, name: '兴坪古镇', detail: '20元人民币背景 · 黄布倒影' },
-        { lat: 24.8200, lng: 110.4500, name: '望山·千里江山约拍点', detail: '山巅汉服拍摄 · 需预约' },
+        { lat: 24.7740, lng: 110.4943, name: '水雾印象旅拍写真馆', detail: 'D2 凌晨02:30 · 西街115号肯德基二楼' },
         { lat: 24.8100, lng: 110.4700, name: '银子岩', detail: '溶洞 · 18-20°C避暑' },
-        { lat: 24.7695, lng: 110.4915, name: '神州租车·阳朔自助点', detail: 'D3取车 · 旅游停车场 · 24H' }
+        { lat: 24.7695, lng: 110.4915, name: '神州租车·阳朔自助点', detail: 'D3取车 · 旅游停车场 · 24H' },
+        { lat: 24.7785, lng: 110.4967, name: '全季桂林阳朔西街酒店', detail: 'D1-D2 住宿 · 抗战路6号' }
       ]
     },
     longji: {
@@ -30,18 +32,20 @@
       zoom: 13,
       markers: [
         { lat: 25.7936, lng: 110.1039, name: '金坑大寨', detail: '大地指纹 · 索道/徒步' },
-        { lat: 25.7800, lng: 110.1200, name: '平安壮寨', detail: '九龙五虎 · 七星伴月' }
+        { lat: 25.7800, lng: 110.1200, name: '平安壮寨', detail: '九龙五虎 · 七星伴月' },
+        { lat: 25.8054, lng: 110.1497, name: '陌野晨晞', detail: 'D3 住宿 · 田头寨三组66号' }
       ]
     },
     beihai: {
-      center: [21.4500, 109.1200],
+      center: [21.4550, 109.1250],
       zoom: 12,
       markers: [
-        { lat: 21.3956, lng: 109.1299, name: '北海银滩', detail: '细腻白沙滩 · 落日' },
-        { lat: 21.4850, lng: 109.1170, name: '北海老街', detail: '南洋骑楼 · 珠海路' },
-        { lat: 21.4550, lng: 109.1330, name: '侨港风情街', detail: '虾饼 · 糖水 · 越南卷粉' },
-        { lat: 21.5100, lng: 109.0500, name: '冠头岭', detail: '海枯石烂 · 日落最佳点' },
-        { lat: 21.4700, lng: 109.1150, name: '北海站', detail: '动车到达站' }
+        { lat: 21.4550, lng: 109.1330, name: '侨港风情街', detail: '连住4晚 · 小吃夜市' },
+        { lat: 21.4410, lng: 109.0510, name: '冠岭·幸福湾', detail: 'D6 踩沙 · 2号楼' },
+        { lat: 21.4420, lng: 109.0490, name: '冠岭·夕海岸', detail: 'D6 日落 · 10号楼' },
+        { lat: 21.3930, lng: 109.1280, name: '银滩66号赶海', detail: 'D7 日出赶海' },
+        { lat: 21.4850, lng: 109.1170, name: '北海老街', detail: 'D7 慢逛 · 贵州路海鲜' },
+        { lat: 21.4700, lng: 109.1150, name: '北海站', detail: 'D5抵达 · D9返程' }
       ]
     },
     overview: {
@@ -51,7 +55,7 @@
         { lat: 25.2622, lng: 110.2909, name: '桂林市区', detail: '象鼻山 · 两江四湖' },
         { lat: 24.7700, lng: 110.4850, name: '阳朔', detail: '漓江 · 遇龙河 · 约拍' },
         { lat: 25.7936, lng: 110.1039, name: '龙脊梯田', detail: '金坑大寨' },
-        { lat: 21.4500, lng: 109.1200, name: '北海', detail: '银滩 · 老街' }
+        { lat: 21.4500, lng: 109.1200, name: '北海', detail: '侨港 · 赶海 · 冠头岭' }
       ]
     }
   };
@@ -202,7 +206,7 @@
       loc.markers.forEach(function(m) {
         var icon = guilinIcon;
         if (key === 'beihai') icon = beihaiIcon;
-        if (m.name.indexOf('约拍') !== -1 || m.name.indexOf('千里江山') !== -1) icon = photoIcon;
+        if (m.name.indexOf('约拍') !== -1 || m.name.indexOf('水雾印象') !== -1) icon = photoIcon;
         if (m.name.indexOf('神州租车') !== -1) icon = rentalIcon;
 
         var marker = L.marker([m.lat, m.lng], { icon: icon })

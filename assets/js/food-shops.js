@@ -68,9 +68,9 @@
       shops: []
     },
     beihai: {
-      title: '北海 · 美食推荐',
+      title: '侨港 · 美食推荐',
       icon: '🦐',
-      area: '北海',
+      area: '侨港 / 贵州路',
       shops: []
     }
   };

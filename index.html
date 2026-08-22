@@ -17,7 +17,7 @@
   <script>
     // App version gate: bump this string whenever a hard refresh of assets is required.
     // Same version → keep cache. Changed version → clear Cache Storage and reload once.
-    window.TRIPO_APP_VERSION = '20260817f';
+    window.TRIPO_APP_VERSION = '20260822a';
     (function () {
       var APP_VERSION = window.TRIPO_APP_VERSION;
       var KEY = 'tripo-app-version';
@@ -83,7 +83,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
         crossorigin=""/>
-  <link rel="stylesheet" href="assets/css/style.css?v=20260817f">
+  <link rel="stylesheet" href="assets/css/style.css?v=20260822a">
 </head>
 <body>
   <div class="bg-media" id="bgMedia" aria-hidden="true">
@@ -148,7 +148,7 @@
       </div>
       <div class="card">
         <p style="font-size: 0.95rem; line-height: 1.8;">
-          本次行程以<strong>桂林山水</strong>为核心，先赴<strong>阳朔</strong>体验漓江精华与十里画廊，并特别安排<strong>"千里江山图"主题汉服约拍</strong>。阳朔2日游结束后于 D3 在<strong>神州租车·阳朔自助点</strong>取车自驾，经龙脊梯田盘山路前往<strong>金坑大寨</strong>，D5 赴北海前于<strong>桂林北站服务点</strong>还车。随后回<strong>桂林市区</strong>打卡经典地标，行程尾声乘高铁直达<strong>北海</strong>，体验银滩细沙、侨港美食与海滨日落，山水与海滨无缝衔接。
+          本次行程以<strong>桂林山水</strong>为核心，先赴<strong>阳朔</strong>体验漓江精华与十里画廊，并特别安排<strong>水雾印象旅拍清晨写真</strong>（9/6 凌晨 02:30）。阳朔2日游结束后于 D3 在<strong>神州租车·阳朔自助点</strong>取车自驾，经龙脊梯田盘山路前往<strong>金坑大寨</strong>，D5 赴北海前于<strong>桂林北站服务点</strong>还车。随后回<strong>桂林市区</strong>打卡经典地标，行程尾声乘高铁直达<strong>北海</strong>：<strong>侨港附近连住 4 晚</strong>，主打赶海、日出日落与海鲜，冠头岭看海、银滩 66 号赶海、贵州路海鲜与老街慢逛。
         </p>
       </div>
     </section>
@@ -172,20 +172,20 @@
             <div class="timeline-header">
               <div>
                 <div class="timeline-date">9月5日 · 周六</div>
-                <div class="timeline-title">抵达阳朔 · 西街休整</div>
-                <div class="timeline-location">📍 阳朔站 → 西街附近</div>
+                <div class="timeline-title">抵达阳朔 · 早休备战</div>
+                <div class="timeline-location">📍 阳朔站 → 酒店</div>
               </div>
               <span class="timeline-badge badge-guilin">桂林</span>
             </div>
             <ul class="schedule-list">
-              <li><span class="schedule-time">中午</span><span class="schedule-detail">高铁抵达<strong>阳朔站</strong>，出站后<strong>打车</strong>前往<strong>西街附近酒店</strong>（约30分钟），办理入住、放下行李</span></li>
-              <li><span class="schedule-time">下午</span><span class="schedule-detail">出门吃午饭，回酒店休息调整，为 D2 约拍养精蓄锐</span></li>
-              <li><span class="schedule-time">晚上</span><span class="schedule-detail">再次前往<strong>阳朔西街</strong>，晚餐后逛西街，感受中西交融的市井风情<em>（啤酒鱼、田螺酿、荔浦芋扣肉）</em></span></li>
+              <li><span class="schedule-time">中午</span><span class="schedule-detail">高铁抵达<strong>阳朔站</strong>，出站后<strong>打车</strong>前往<strong><a class="hotel-link" href="https://uri.amap.com/navigation?to=110.5013,24.7756,全季桂林阳朔西街酒店&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">全季桂林阳朔西街酒店</a></strong>（约30分钟），办理入住、放下行李</span></li>
+              <li><span class="schedule-time">下午</span><span class="schedule-detail">酒店附近<strong>简餐</strong>，回房午休，为次日凌晨约拍储备体力</span></li>
+              <li><span class="schedule-time">晚上</span><span class="schedule-detail">就近<strong>晚餐</strong>后即回酒店早睡<em>（不逛西街，次日 02:30 约拍出发）</em></span></li>
             </ul>
             <div class="timeline-tags">
-              <span class="tag">🏨 住宿：西街附近酒店</span>
-              <span class="tag">🍜 晚餐：西街</span>
-              <span class="tag">😴 休整为主</span>
+              <span class="tag tag-hotel">🏨 住宿：<a class="hotel-link" href="https://uri.amap.com/navigation?to=110.5013,24.7756,全季桂林阳朔西街酒店&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">全季桂林阳朔西街酒店</a></span>
+              <span class="tag">🍜 轻量晚餐</span>
+              <span class="tag highlight">😴 早睡备战</span>
             </div>
           </div>
         </div>
@@ -197,8 +197,8 @@
             <div class="timeline-header">
               <div>
                 <div class="timeline-date">9月6日 · 周日</div>
-                <div class="timeline-title">千里江山约拍 · 全天</div>
-                <div class="timeline-location">📍 阳朔 · 约拍门店 → 拍摄点</div>
+                <div class="timeline-title">凌晨约拍 · 下午逛西街</div>
+                <div class="timeline-location">📍 水雾印象旅拍 → 西街</div>
               </div>
               <div>
                 <span class="timeline-badge badge-guilin" style="margin-right:0.3rem">桂林</span>
@@ -206,60 +206,46 @@
               </div>
             </div>
             <ul class="schedule-list">
-              <li><span class="schedule-time">早上</span><span class="schedule-detail">前往约拍门店，开始<strong>选衣、妆造</strong>，除用餐外基本全天处于约拍状态<em>（需提前3天预约，勿迟到）</em></span></li>
-              <li><span class="schedule-time">白天</span><span class="schedule-detail"><strong>「望山·千里江山图」主题约拍</strong> — 山巅汉服/战国袍拍摄，含妆造+摄影师跟拍，流程持续至傍晚</span></li>
-              <li><span class="schedule-time">晚上</span><span class="schedule-detail">约拍结束后归还衣服，<strong>晚餐</strong>，之后方可自由安排<em>（门店要求22:00前归还）</em></span></li>
+              <li><span class="schedule-time">凌晨</span><span class="schedule-detail"><strong>02:30</strong> 从酒店出发，前往<strong><a class="hotel-link" href="https://uri.amap.com/navigation?to=110.4943,24.7740,水雾印象旅拍写真馆(阳朔西街店)&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">水雾印象旅拍写真馆(阳朔西街店)</a></strong>，开始<strong>选衣、妆造</strong>与拍摄<em>（已预约，务必准时）</em></span></li>
+              <li><span class="schedule-time">清晨</span><span class="schedule-detail">继续外景拍摄至日出结束，随后归还服装</span></li>
+              <li><span class="schedule-time">上午</span><span class="schedule-detail">拍摄收尾后回酒店<strong>补觉</strong>，恢复体力</span></li>
+              <li><span class="schedule-time">下午</span><span class="schedule-detail">睡醒后前往<strong>阳朔西街</strong>闲逛，感受中西交融的市井风情<em>（啤酒鱼、田螺酿、荔浦芋扣肉）</em></span></li>
+              <li><span class="schedule-time">晚上</span><span class="schedule-detail">西街<strong>晚餐</strong>，可继续逛夜景或回酒店休息</span></li>
             </ul>
 
             <!-- Photo Session Detail Card -->
             <div class="photo-session">
-              <h4>📸 千里江山图约拍 · 详情</h4>
+              <h4>📸 水雾印象旅拍 · 详情</h4>
               <p style="font-size: 0.88rem; color: var(--muted); margin-bottom: 0.5rem;">
-                依托阳朔相公山绝美峰林，身着飘逸汉服立于山巅，以千里江山图为灵感打造国风大片。专业化妆师量身打造古风妆容，资深摄影师全程一对一跟拍。
+                已预约<strong>水雾印象旅拍写真馆(阳朔西街店)</strong>，凌晨妆造+拍摄，捕捉清晨柔和光线。拍摄结束后上午补觉，下午再逛西街。
               </p>
               <div class="photo-info-grid">
                 <div class="photo-info-item">
-                  <div class="pi-label">推荐套餐</div>
-                  <div class="pi-value">望山千里江山图套餐</div>
+                  <div class="pi-label">预约店铺</div>
+                  <div class="pi-value"><a class="hotel-link" href="https://uri.amap.com/navigation?to=110.4943,24.7740,水雾印象旅拍写真馆(阳朔西街店)&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">水雾印象旅拍写真馆(阳朔西街店)</a></div>
                 </div>
                 <div class="photo-info-item">
-                  <div class="pi-label">参考价格</div>
-                  <div class="pi-value">¥1,121起 / 单人</div>
+                  <div class="pi-label">预约时间</div>
+                  <div class="pi-value">9月6日 02:30</div>
                 </div>
                 <div class="photo-info-item">
-                  <div class="pi-label">含无人机版</div>
-                  <div class="pi-value">¥1,723 / 单人</div>
+                  <div class="pi-label">店铺地址</div>
+                  <div class="pi-value">西街115号肯德基二楼</div>
                 </div>
                 <div class="photo-info-item">
-                  <div class="pi-label">拍摄时长</div>
-                  <div class="pi-value">2小时（含选衣+化妆）</div>
-                </div>
-                <div class="photo-info-item">
-                  <div class="pi-label">交付内容</div>
-                  <div class="pi-value">30张底片全送 + 6张精修</div>
-                </div>
-                <div class="photo-info-item">
-                  <div class="pi-label">精修周期</div>
-                  <div class="pi-value">4-5天（可微信传送）</div>
-                </div>
-                <div class="photo-info-item">
-                  <div class="pi-label">拍摄地点</div>
-                  <div class="pi-value">阳朔山巅机位 · 望山</div>
-                </div>
-                <div class="photo-info-item">
-                  <div class="pi-label">推荐店铺</div>
-                  <div class="pi-value">寻迹万物 / 西西里旅拍 / 许十三</div>
+                  <div class="pi-label">出发建议</div>
+                  <div class="pi-value">01:45 前从酒店出发</div>
                 </div>
               </div>
               <p style="font-size: 0.8rem; color: var(--muted); margin-top: 0.8rem; padding: 0.5rem 0.8rem; background: rgba(168,85,247,0.06); border-radius: 6px;">
-                ⚠️ <strong>注意事项：</strong>山顶需步行一段路，勿穿高跟鞋；选夏季衣服建议穿浅色内衣；美瞳、胸贴、肤色打底裤需自备；晚上10点前归还衣服；24小时前可免费取消。
+                ⚠️ <strong>注意事项：</strong>D1 晚上早睡、勿饮酒；美瞳、胸贴、肤色打底裤需自备；拍摄后记得带卸妆用品；若遇恶劣天气提前联系门店改期。
               </p>
             </div>
 
             <div class="timeline-tags">
-              <span class="tag">🏨 住宿：西街附近酒店</span>
-              <span class="tag highlight">📸 千里江山约拍</span>
-              <span class="tag">💄 全天妆造拍摄</span>
+              <span class="tag tag-hotel">🏨 住宿：<a class="hotel-link" href="https://uri.amap.com/navigation?to=110.5013,24.7756,全季桂林阳朔西街酒店&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">全季桂林阳朔西街酒店</a></span>
+              <span class="tag highlight">📸 水雾印象约拍</span>
+              <span class="tag">🍜 下午逛西街</span>
             </div>
           </div>
         </div>
@@ -279,12 +265,12 @@
             <ul class="schedule-list">
               <li><span class="schedule-time">上午</span><span class="schedule-detail"><strong>酒店退房</strong>，行李装车，前往<strong>神州租车·阳朔自助点</strong>取车（旅游停车场，24H自助取还）<em>（需携带身份证+驾驶证原件+信用卡）</em></span></li>
               <li><span class="schedule-time">中午</span><span class="schedule-detail">取车后自驾前往<strong>龙脊梯田</strong>（阳朔→龙脊约155km/3.5h，经 G321→G65 包茂高速）。盘山路弯多坡陡，建议 SUV 并备好晕车药</span></li>
-              <li><span class="schedule-time">下午</span><span class="schedule-detail">抵达景区，先至<strong>梯田观景民宿办理入住</strong>，随后午餐，回酒店休息</span></li>
+              <li><span class="schedule-time">下午</span><span class="schedule-detail">抵达景区，先至<strong><a class="hotel-link" href="https://uri.amap.com/navigation?to=110.1544,25.8025,陌野晨晞&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">陌野晨晞</a></strong>办理入住，随后午餐，回酒店休息</span></li>
               <li><span class="schedule-time">傍晚</span><span class="schedule-detail">休息好后出门逛景区，游览<strong>金坑大寨</strong>或<strong>平安壮寨</strong>，俯瞰"大地指纹"层层叠翠<em>（9月灌水后层次分明，云雾缭绕）</em></span></li>
               <li><span class="schedule-time">晚餐</span><span class="schedule-detail">品尝高山土鸡火锅、腊肉炒笋、竹筒饭，饮一杯阿婆自酿米酒</span></li>
             </ul>
             <div class="timeline-tags">
-              <span class="tag">🏨 住宿：龙脊梯田景区民宿</span>
+              <span class="tag tag-hotel">🏨 住宿：<a class="hotel-link" href="https://uri.amap.com/navigation?to=110.1544,25.8025,陌野晨晞&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">陌野晨晞</a></span>
               <span class="tag highlight">🚗 神州租车取车</span>
               <span class="tag">🥾 傍晚逛景区</span>
               <span class="tag">⭐ 星空</span>
@@ -308,12 +294,12 @@
               <li><span class="schedule-time">清晨</span><span class="schedule-detail">早起观赏<strong>龙脊梯田日出</strong>，云雾缠绕梯田群山，拍摄绝美田园大片</span></li>
               <li><span class="schedule-time">上午</span><span class="schedule-detail">景区内自由活动，可补拍梯田晨景或回酒店补觉</span></li>
               <li><span class="schedule-time">中午</span><span class="schedule-detail">午餐后<strong>酒店退房</strong>，自驾返回桂林市区（龙脊→市区约95km/2h）</span></li>
-              <li><span class="schedule-time">下午</span><span class="schedule-detail">抵达市区后先<strong>办理酒店入住</strong>，放下行李再出门。游览<strong>象鼻山公园</strong>，随后打卡<strong>伏波山</strong>、<strong>叠彩山</strong></span></li>
+              <li><span class="schedule-time">下午</span><span class="schedule-detail">抵达市区后先至<strong><a class="hotel-link" href="https://uri.amap.com/navigation?to=110.3026,25.2717,全季桂林象鼻山日月双塔酒店&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">全季桂林象鼻山日月双塔酒店</a></strong>办理入住，放下行李再出门。游览<strong>象鼻山公园</strong>，随后打卡<strong>伏波山</strong>、<strong>叠彩山</strong></span></li>
               <li><span class="schedule-time">傍晚</span><span class="schedule-detail">漫步<strong>东西巷</strong>、<strong>正阳步行街</strong>，品尝地道桂林米粉、椿记烧鹅</span></li>
               <li><span class="schedule-time">夜间</span><span class="schedule-detail">乘船夜游<strong>两江四湖</strong>，近距离欣赏<strong>日月双塔</strong>璀璨夜景<em>（船票约¥85/人，建议提前线上预订）</em></span></li>
             </ul>
             <div class="timeline-tags">
-              <span class="tag">🏨 住宿：桂林市区</span>
+              <span class="tag tag-hotel">🏨 住宿：<a class="hotel-link" href="https://uri.amap.com/navigation?to=110.3026,25.2717,全季桂林象鼻山日月双塔酒店&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">全季桂林象鼻山日月双塔酒店</a></span>
               <span class="tag highlight">🚗 自驾龙脊→市区</span>
               <span class="tag">🌅 龙脊日出</span>
               <span class="tag">🏔️ 象鼻山·伏波山</span>
@@ -323,7 +309,7 @@
         </div>
 
         <!-- Day 5 -->
-        <div class="timeline-item beihai" data-location="guilin">
+        <div class="timeline-item beihai" data-location="beihai">
           <div class="timeline-dot">D5</div>
           <div class="timeline-card">
             <div class="timeline-header">
@@ -338,17 +324,18 @@
               </div>
             </div>
             <ul class="schedule-list">
-              <li><span class="schedule-time">上午</span><span class="schedule-detail">取消外出行程，在<strong>市区酒店</strong>休整、收拾行李，为转场北海养精蓄锐</span></li>
+              <li><span class="schedule-time">上午</span><span class="schedule-detail">取消外出行程，在<strong><a class="hotel-link" href="https://uri.amap.com/navigation?to=110.3026,25.2717,全季桂林象鼻山日月双塔酒店&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">全季桂林象鼻山日月双塔酒店</a></strong>休整、收拾行李，为转场北海养精蓄锐</span></li>
               <li><span class="schedule-time">中午</span><span class="schedule-detail"><strong>酒店退房</strong>，驾车前往<strong>神州租车·桂林北站服务点</strong>还车（东广场5号停车场，24H）<em>（还车+验车预留30-40分钟）</em></span></li>
               <li><span class="schedule-time">下午</span><span class="schedule-detail">还车后步行至<strong>桂林北站</strong>，乘高铁<strong>直达</strong>北海（全程约4-4.5小时）：<br><strong>推荐车次</strong> D1779 桂林北14:31 → 北海19:00，约4小时29分<em>（¥200起）</em></span></li>
-              <li><span class="schedule-time">傍晚</span><span class="schedule-detail">抵达北海站，入住银滩附近酒店，散步<strong>北海银滩</strong>感受细腻白沙与海风</span></li>
+              <li><span class="schedule-time">傍晚</span><span class="schedule-detail">抵达<strong>北海站</strong>，打车前往<strong>侨港附近酒店</strong>入住（约 20–25 分钟），放下行李</span></li>
+              <li><span class="schedule-time">晚上</span><span class="schedule-detail">步行逛<strong>侨港风情街</strong>，越南粉卷、糖水、小吃轻量试探<em>（步行 5–10 分钟；认准明码标价）</em>。可选顺路<strong>侨港海滩</strong>听乐队</span></li>
             </ul>
             <div class="timeline-tags">
-              <span class="tag">🏨 住宿：北海银滩附近</span>
+              <span class="tag">🏨 住宿：侨港附近（D5–D8 连住）</span>
               <span class="tag highlight">🚗 神州租车还车·桂林北站</span>
               <span class="tag">😴 酒店休整</span>
               <span class="tag">🚄 高铁直达约4.5h</span>
-              <span class="tag">🏖️ 银滩夜景</span>
+              <span class="tag">🍜 侨港小吃</span>
             </div>
           </div>
         </div>
@@ -360,23 +347,23 @@
             <div class="timeline-header">
               <div>
                 <div class="timeline-date">9月10日 · 周四</div>
-                <div class="timeline-title">北海市区 · 老街风情</div>
-                <div class="timeline-location">📍 北海市区</div>
+                <div class="timeline-title">冠头岭 · 踩海日落</div>
+                <div class="timeline-location">📍 冠头岭 · 幸福湾 → 夕海岸</div>
               </div>
               <span class="timeline-badge badge-beihai">北海</span>
             </div>
             <ul class="schedule-list">
-              <li><span class="schedule-time">上午</span><span class="schedule-detail">游览<strong>北海老街</strong>（珠海路），感受百年南洋骑楼建筑群，沿街品尝虾饼、卷粉等小吃</span></li>
-              <li><span class="schedule-time">中午</span><span class="schedule-detail">前往<strong>侨港风情街</strong>，品尝虾饼、糖水、越南卷粉、沙巴小镇越南菜<em>（北海最热闹的美食街）</em></span></li>
-              <li><span class="schedule-time">下午</span><span class="schedule-detail">游览<strong>冠头岭国家森林公园</strong>，打卡"海枯石烂"景点，感受海蚀地貌</span></li>
-              <li><span class="schedule-time">傍晚</span><span class="schedule-detail"><strong>冠头岭看日落</strong>，夕阳染红海面，是北海最佳日落观赏点</span></li>
-              <li><span class="schedule-time">晚上</span><span class="schedule-detail">海鲜大餐！推荐<strong>沙虫刺身</strong>、<strong>椒盐皮皮虾</strong>、花蟹、生蚝<em>（认准明码标价门店或平台套餐）</em></span></li>
+              <li><span class="schedule-time">13:30</span><span class="schedule-detail">从侨港酒店出发，<strong>租电驴</strong>或打车前往<strong>冠岭山庄 2 号楼·幸福湾</strong>（电驴约 20–30 分钟）<em>（导航勿选「冠头岭公园」）</em></span></li>
+              <li><span class="schedule-time">14:15</span><span class="schedule-detail"><strong>幸福湾</strong>踩沙、拍照：人少沙滩，T 台、秋千等<em>（部分打卡位可能有低消，入座前先问）</em></span></li>
+              <li><span class="schedule-time">16:30</span><span class="schedule-detail">电驴或步行至<strong>冠岭山庄 10 号楼·夕海岸</strong>（约 5–8 分钟），<strong>冠岭夕海岸 / 夕海岸 BAR</strong> 找位点单</span></li>
+              <li><span class="schedule-time">17:00</span><span class="schedule-detail">露台坐着看<strong>冠头岭日落</strong>（9 月约 18:45 日落，建议坐到 19:00 蓝调时刻）</span></li>
+              <li><span class="schedule-time">19:15</span><span class="schedule-detail">电驴/打车回<strong>侨港酒店</strong>休息<em>（日落后人少，建议提前叫车）</em></span></li>
             </ul>
             <div class="timeline-tags">
-              <span class="tag">🏨 住宿：北海市区</span>
-              <span class="tag">🦐 海鲜大餐</span>
-              <span class="tag">🌅 冠头岭日落</span>
-              <span class="tag">🏘️ 老街</span>
+              <span class="tag">🏨 住宿：侨港附近</span>
+              <span class="tag highlight">🛵 电驴/打车</span>
+              <span class="tag">🌅 夕海岸日落</span>
+              <span class="tag">🏖️ 幸福湾踩海</span>
             </div>
           </div>
         </div>
@@ -388,22 +375,25 @@
             <div class="timeline-header">
               <div>
                 <div class="timeline-date">9月11日 · 周五</div>
-                <div class="timeline-title">北海银滩 · 水上运动</div>
-                <div class="timeline-location">📍 北海银滩</div>
+                <div class="timeline-title">日出赶海 · 贵州路海鲜</div>
+                <div class="timeline-location">📍 银滩 66 号 → 贵州路 · 老街</div>
               </div>
               <span class="timeline-badge badge-beihai">北海</span>
             </div>
             <ul class="schedule-list">
-              <li><span class="schedule-time">上午</span><span class="schedule-detail">前往<strong>北海海底世界</strong>或<strong>海洋之窗</strong>，了解北部湾海洋生物多样性</span></li>
-              <li><span class="schedule-time">中午</span><span class="schedule-detail">银滩附近海鲜排档午餐，推荐清蒸石斑鱼、白灼虾</span></li>
-              <li><span class="schedule-time">下午</span><span class="schedule-detail"><strong>银滩</strong>水上运动体验：帆船、桨板、摩托艇<em>（银滩沙细水浅，非常适合水上项目）</em></span></li>
-              <li><span class="schedule-time">傍晚</span><span class="schedule-detail">银滩漫步看日落，沙滩拾贝，享受悠闲海滨时光</span></li>
+              <li><span class="schedule-time">05:15</span><span class="schedule-detail"><strong>预约网约车</strong>从侨港出发，前往<strong>银滩 66 号赶海</strong> + <strong>银滩东北门</strong>看日出<em>（打车约 15–20 分钟；出发前查潮汐表，干潮前 1–2 小时到）</em></span></li>
+              <li><span class="schedule-time">06:00</span><span class="schedule-detail"><strong>赶海</strong>：找渔民过晒地捡挖，带小桶、手套<em>（若当日干潮不在清晨，按潮汐对调 D6/D7 内容）</em></span></li>
+              <li><span class="schedule-time">08:45</span><span class="schedule-detail">打车回<strong>侨港酒店</strong>洗澡、补觉、早餐</span></li>
+              <li><span class="schedule-time">12:00</span><span class="schedule-detail">打车至<strong>贵州路 / 外沙</strong>海鲜午餐：皮皮虾、花蟹、生蚝等<em>（先问价看秤，明码标价）</em></span></li>
+              <li><span class="schedule-time">14:00</span><span class="schedule-detail">步行慢逛<strong>北海老街</strong>（珠海路），高处长焦拍照，顺路采购海鸭蛋等伴手礼</span></li>
+              <li><span class="schedule-time">傍晚</span><span class="schedule-detail">回侨港休息；晚上可在<strong>风情街</strong>糖水、小吃补刀<em>（中午已吃海鲜，不必大餐）</em></span></li>
             </ul>
             <div class="timeline-tags">
-              <span class="tag">🏨 住宿：北海银滩附近</span>
-              <span class="tag">🚤 水上运动</span>
-              <span class="tag">🐠 海底世界</span>
-              <span class="tag">🏖️ 银滩日落</span>
+              <span class="tag">🏨 住宿：侨港附近</span>
+              <span class="tag highlight">🦀 银滩66号赶海</span>
+              <span class="tag">🌅 日出</span>
+              <span class="tag">🦐 贵州路海鲜</span>
+              <span class="tag">🏘️ 老街慢逛</span>
             </div>
           </div>
         </div>
@@ -415,22 +405,22 @@
             <div class="timeline-header">
               <div>
                 <div class="timeline-date">9月12日 · 周六</div>
-                <div class="timeline-title">北海休闲 · 红树林赶海</div>
-                <div class="timeline-location">📍 北海市区</div>
+                <div class="timeline-title">自然醒 · 慢收尾</div>
+                <div class="timeline-location">📍 侨港 · 北海</div>
               </div>
               <span class="timeline-badge badge-beihai">北海</span>
             </div>
             <ul class="schedule-list">
-              <li><span class="schedule-time">上午</span><span class="schedule-detail">前往<strong>山口红树林</strong>或<strong>金海湾红树林</strong>生态旅游区，漫步栈道观鸟，感受"海上森林"奇观</span></li>
-              <li><span class="schedule-time">中午</span><span class="schedule-detail">体验<strong>赶海</strong>拾贝：退潮后在滩涂挖沙虫、捡螺、抓蟹<em>（需查潮汐表，当地可租工具）</em></span></li>
-              <li><span class="schedule-time">下午</span><span class="schedule-detail">返回市区自由活动，逛北部湾广场、侨港风情街喝糖水下午茶，感受慢生活</span></li>
-              <li><span class="schedule-time">晚上</span><span class="schedule-detail">推荐外沙海鲜岛或侨港海鲜排档，品尝清蒸石斑鱼、椒盐虾等北部湾特色海鲜</span></li>
+              <li><span class="schedule-time">上午</span><span class="schedule-detail"><strong>自然醒</strong>，侨港附近散步；补购伴手礼<em>（海鸭蛋、珍珠饰品等）</em></span></li>
+              <li><span class="schedule-time">可选</span><span class="schedule-detail">电驴/打车至<strong>银滩东北门</strong>最后踩水 1–2 小时<em>（非必须）</em></span></li>
+              <li><span class="schedule-time">中午</span><span class="schedule-detail">侨港或酒店附近<strong>简餐</strong></span></li>
+              <li><span class="schedule-time">下午</span><span class="schedule-detail">回酒店<strong>收拾行李</strong>，确认 D9 去机场/北海站交通</span></li>
+              <li><span class="schedule-time">晚上</span><span class="schedule-detail">早睡或风情街轻夜宵，为返程养精蓄锐</span></li>
             </ul>
             <div class="timeline-tags">
-              <span class="tag">🏨 住宿：北海市区</span>
-              <span class="tag">🌳 红树林</span>
-              <span class="tag">🦀 赶海拾贝</span>
-              <span class="tag">🎁 伴手礼采购</span>
+              <span class="tag">🏨 住宿：侨港附近</span>
+              <span class="tag">😴 自然醒</span>
+              <span class="tag">🎁 伴手礼</span>
             </div>
           </div>
         </div>
@@ -448,9 +438,9 @@
               <span class="timeline-badge badge-beihai">北海</span>
             </div>
             <ul class="schedule-list">
-              <li><span class="schedule-time">上午</span><span class="schedule-detail">北海自由活动，采购伴手礼：<strong>海鸭蛋</strong>、<strong>珍珠饰品</strong>、桂花糕等。漫步银滩做最后的告别</span></li>
-              <li><span class="schedule-time">中午</span><span class="schedule-detail">最后一顿地道海鲜大餐，推荐侨港或外沙海鲜岛</span></li>
-              <li><span class="schedule-time">下午</span><span class="schedule-detail">乘飞机（北海福成机场）或高铁返程，结束美好的9日山水海滨之旅</span></li>
+              <li><span class="schedule-time">上午</span><span class="schedule-detail">自然醒，侨港附近早餐；最后采购遗漏伴手礼</span></li>
+              <li><span class="schedule-time">中午</span><span class="schedule-detail">简餐，不建议 heavy 海鲜<em>（D7 已在贵州路吃过）</em></span></li>
+              <li><span class="schedule-time">下午</span><span class="schedule-detail">乘飞机（北海福成机场）或高铁返程，结束 9 日山水海滨之旅</span></li>
             </ul>
             <div class="timeline-tags">
               <span class="tag">🛫 返程</span>
@@ -531,13 +521,13 @@
           <circle cx="350" cy="200" r="8" fill="#a855f7"/>
           <circle cx="350" cy="200" r="14" fill="none" stroke="#a855f7" stroke-width="2" opacity="0.4"/>
           <text x="380" y="205" font-size="13" font-weight="700" fill="#a855f7">阳朔</text>
-          <text x="380" y="218" font-size="9" fill="#6b8e8a">漓江·遇龙河·千里江山约拍</text>
+          <text x="380" y="218" font-size="9" fill="#6b8e8a">漓江·遇龙河·水雾印象约拍</text>
 
           <!-- 北海 -->
           <circle cx="530" cy="300" r="8" fill="#f59e0b"/>
           <circle cx="530" cy="300" r="14" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.4"/>
           <text x="530" y="325" text-anchor="middle" font-size="13" font-weight="700" fill="#f59e0b">北海</text>
-          <text x="530" y="340" text-anchor="middle" font-size="9" fill="#6b8e8a">银滩·老街·侨港</text>
+          <text x="530" y="340" text-anchor="middle" font-size="9" fill="#6b8e8a">侨港·冠头岭·银滩</text>
 
           <!-- Legend -->
           <rect x="20" y="340" width="280" height="52" fill="rgba(255,255,255,0.8)" rx="8" stroke="#d4e5e1"/>
@@ -615,19 +605,19 @@
         <div class="route-item">
           <div class="route-num">1</div>
           <div class="route-content">
-            <div class="route-name">阳朔站 → 阳朔县城</div>
-            <div class="route-desc">约30分钟车程 · D1高铁直达阳朔站后前往县城</div>
+            <div class="route-name">阳朔站 → 全季桂林阳朔西街酒店</div>
+            <div class="route-desc">约30分钟车程 · D1高铁直达阳朔站后前往酒店入住</div>
           </div>
-          <a class="route-link" href="https://uri.amap.com/navigation?from=110.4260,24.7460,阳朔站&to=110.4880,24.7720,阳朔西街&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">高德导航 →</a>
+          <a class="route-link" href="https://uri.amap.com/navigation?from=110.4260,24.7460,阳朔站&to=110.5013,24.7756,全季桂林阳朔西街酒店&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">高德导航 →</a>
         </div>
 
         <div class="route-item">
           <div class="route-num">2</div>
           <div class="route-content">
-            <div class="route-name">阳朔西街 → 遇龙河 → 十里画廊 → 望山约拍点</div>
-            <div class="route-desc">D2阳朔本地游览 · 电驴骑行+包车</div>
+            <div class="route-name">全季酒店 → 水雾印象旅拍写真馆</div>
+            <div class="route-desc">D2 凌晨 02:30 约拍 · 建议 01:45 前出发 · 西街115号肯德基二楼</div>
           </div>
-          <a class="route-link" href="https://uri.amap.com/navigation?from=110.4880,24.7720,阳朔西街&to=110.4150,24.7650,遇龙河十里画廊&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">高德导航 →</a>
+          <a class="route-link" href="https://uri.amap.com/navigation?from=110.5013,24.7756,全季桂林阳朔西街酒店&to=110.4943,24.7740,水雾印象旅拍写真馆(阳朔西街店)&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">高德导航 →</a>
         </div>
 
         <div class="route-item rental-route">
@@ -636,25 +626,25 @@
             <div class="route-name">阳朔 → 龙脊梯田（神州租车自驾）</div>
             <div class="route-desc">约155km/3.5h · D3取车后北上 · 经 G321→G65 包茂高速 · 盘山路备晕车药</div>
           </div>
-          <a class="route-link" href="https://uri.amap.com/navigation?from=110.4915,24.7695,阳朔自助点&to=110.1039,25.7936,龙脊梯田金坑大寨&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">高德导航 →</a>
+          <a class="route-link" href="https://uri.amap.com/navigation?from=110.4915,24.7695,阳朔自助点&to=110.1544,25.8025,陌野晨晞&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">高德导航 →</a>
         </div>
 
         <div class="route-item rental-route">
           <div class="route-num">4</div>
           <div class="route-content">
-            <div class="route-name">龙脊梯田 → 桂林市区（神州租车自驾）</div>
-            <div class="route-desc">约95km/2h · D4看完日出后返回 · 继续用车游览象鼻山等</div>
+            <div class="route-name">龙脊梯田 → 全季桂林象鼻山日月双塔酒店（神州租车自驾）</div>
+            <div class="route-desc">约95km/2h · D4看完日出后返回 · 入住后继续用车游览象鼻山等</div>
           </div>
-          <a class="route-link" href="https://uri.amap.com/navigation?from=110.1039,25.7936,龙脊梯田&to=110.2990,25.2700,桂林东西巷&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">高德导航 →</a>
+          <a class="route-link" href="https://uri.amap.com/navigation?from=110.1544,25.8025,陌野晨晞&to=110.3026,25.2717,全季桂林象鼻山日月双塔酒店&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">高德导航 →</a>
         </div>
 
         <div class="route-item rental-route">
           <div class="route-num">5</div>
           <div class="route-content">
-            <div class="route-name">桂林市区酒店 → 神州租车还车·桂林北站</div>
+            <div class="route-name">全季桂林象鼻山日月双塔酒店 → 神州租车还车·桂林北站</div>
             <div class="route-desc">D5 中午退房后还车 @ 北站东广场5号停车场 → 14:31乘D1779赴北海</div>
           </div>
-          <a class="route-link" href="https://uri.amap.com/navigation?from=110.2990,25.2700,桂林东西巷&to=110.3120,25.3285,神州租车桂林北站&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">高德导航 →</a>
+          <a class="route-link" href="https://uri.amap.com/navigation?from=110.3026,25.2717,全季桂林象鼻山日月双塔酒店&to=110.3120,25.3285,神州租车桂林北站&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">高德导航 →</a>
         </div>
 
         <div class="route-item">
@@ -678,10 +668,10 @@
         <div class="route-item beihai-route">
           <div class="route-num">8</div>
           <div class="route-content">
-            <div class="route-name">北海站 → 银滩 → 老街 → 侨港 → 冠头岭</div>
-            <div class="route-desc">D6-D8北海市区游览路线 · 打车/公交</div>
+            <div class="route-name">北海站 → 侨港 → 冠头岭 → 银滩66号 → 贵州路</div>
+            <div class="route-desc">D5–D8 侨港连住 · D6电驴冠头岭 · D7打车赶海 · 电驴/打车</div>
           </div>
-          <a class="route-link" href="https://uri.amap.com/navigation?from=109.1200,21.4800,北海站&to=109.0500,21.4200,冠头岭&via=109.1300,21.4400,北海银滩|109.1190,21.4810,北海老街&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">高德导航 →</a>
+          <a class="route-link" href="https://uri.amap.com/navigation?from=109.1200,21.4800,北海站&to=109.1330,21.4550,侨港风情街&via=109.0510,21.4410,冠岭幸福湾|109.0380,21.4200,银滩66号赶海|109.1150,21.4780,贵州路&mode=car&src=mypage&callnative=0" target="_blank" rel="noopener">高德导航 →</a>
         </div>
 
       </div>
@@ -705,7 +695,7 @@
         </div>
         <div class="route-info-card">
           <div class="route-icon">🏖️</div>
-          <div class="route-label">北海银滩+市区</div>
+          <div class="route-label">北海侨港+沿海</div>
           <div class="route-value">4 天</div>
         </div>
       </div>
@@ -763,7 +753,7 @@
           <div class="checklist-item" data-item="pants"><span class="check-pair"><input type="checkbox" class="check-blue" id="pants-blue" data-item="pants" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="pants-pink" data-item="pants" data-who="pink" aria-label="粉方"></span><span class="item-label">轻薄长裤 ×2<span class="item-note">（防蚊+防晒）</span></span></div>
           <div class="checklist-item" data-item="shorts"><span class="check-pair"><input type="checkbox" class="check-blue" id="shorts-blue" data-item="shorts" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="shorts-pink" data-item="shorts" data-who="pink" aria-label="粉方"></span><span class="item-label">短裤 ×2</span></div>
           <div class="checklist-item" data-item="jacket"><span class="check-pair"><input type="checkbox" class="check-blue" id="jacket-blue" data-item="jacket" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="jacket-pink" data-item="jacket" data-who="pink" aria-label="粉方"></span><span class="item-label">薄外套 ×1<span class="item-note">（龙脊早晚凉/动车空调）</span></span></div>
-          <div class="checklist-item" data-item="swimwear"><span class="check-pair"><input type="checkbox" class="check-blue" id="swimwear-blue" data-item="swimwear" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="swimwear-pink" data-item="swimwear" data-who="pink" aria-label="粉方"></span><span class="item-label">泳衣<span class="item-note">（北海银滩/酒店泳池）</span></span></div>
+          <div class="checklist-item" data-item="swimwear"><span class="check-pair"><input type="checkbox" class="check-blue" id="swimwear-blue" data-item="swimwear" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="swimwear-pink" data-item="swimwear" data-who="pink" aria-label="粉方"></span><span class="item-label">泳衣/溯溪鞋<span class="item-note">（D6幸福湾踩海 / D7赶海）</span></span></div>
           <div class="checklist-item" data-item="walking-shoes"><span class="check-pair"><input type="checkbox" class="check-blue" id="walking-shoes-blue" data-item="walking-shoes" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="walking-shoes-pink" data-item="walking-shoes" data-who="pink" aria-label="粉方"></span><span class="item-label">舒适运动鞋<span class="item-note">（梯田徒步）</span></span></div>
           <div class="checklist-item" data-item="sandals"><span class="check-pair"><input type="checkbox" class="check-blue" id="sandals-blue" data-item="sandals" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="sandals-pink" data-item="sandals" data-who="pink" aria-label="粉方"></span><span class="item-label">凉鞋/溯溪鞋<span class="item-note">（竹筏/海滩）</span></span></div>
           <div class="checklist-item" data-item="innerwear"><span class="check-pair"><input type="checkbox" class="check-blue" id="innerwear-blue" data-item="innerwear" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="innerwear-pink" data-item="innerwear" data-who="pink" aria-label="粉方"></span><span class="item-label">浅色内衣<span class="item-note">（约拍要求）</span></span></div>
@@ -788,7 +778,7 @@
           <div class="checklist-item" data-item="nipple-cover"><span class="check-pair"><input type="checkbox" class="check-blue" id="nipple-cover-blue" data-item="nipple-cover" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="nipple-cover-pink" data-item="nipple-cover" data-who="pink" aria-label="粉方"></span><span class="item-label">胸贴<span class="item-note">（自备）</span></span></div>
           <div class="checklist-item" data-item="skin-leggings"><span class="check-pair"><input type="checkbox" class="check-blue" id="skin-leggings-blue" data-item="skin-leggings" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="skin-leggings-pink" data-item="skin-leggings" data-who="pink" aria-label="粉方"></span><span class="item-label">肤色打底裤<span class="item-note">（自备）</span></span></div>
           <div class="checklist-item" data-item="flat-shoes"><span class="check-pair"><input type="checkbox" class="check-blue" id="flat-shoes-blue" data-item="flat-shoes" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="flat-shoes-pink" data-item="flat-shoes" data-who="pink" aria-label="粉方"></span><span class="item-label">平底鞋/运动鞋<span class="item-note">（山顶需步行，勿穿高跟鞋）</span></span></div>
-          <div class="checklist-item" data-item="photo-booking"><span class="check-pair"><input type="checkbox" class="check-blue" id="photo-booking-blue" data-item="photo-booking" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="photo-booking-pink" data-item="photo-booking" data-who="pink" aria-label="粉方"></span><span class="item-label">提前3天预约确认<span class="item-note">（姓名+手机号）</span></span></div>
+          <div class="checklist-item" data-item="photo-booking"><span class="check-pair"><input type="checkbox" class="check-blue" id="photo-booking-blue" data-item="photo-booking" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="photo-booking-pink" data-item="photo-booking" data-who="pink" aria-label="粉方"></span><span class="item-label">9/6 02:30 约拍已预约<span class="item-note">（水雾印象旅拍）</span></span></div>
           <div class="checklist-item" data-item="makeup-remover"><span class="check-pair"><input type="checkbox" class="check-blue" id="makeup-remover-blue" data-item="makeup-remover" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="makeup-remover-pink" data-item="makeup-remover" data-who="pink" aria-label="粉方"></span><span class="item-label">卸妆用品<span class="item-note">（拍摄后卸妆）</span></span></div>
         </div>
 
@@ -824,6 +814,8 @@
           <div class="checklist-item" data-item="tissue"><span class="check-pair"><input type="checkbox" class="check-blue" id="tissue-blue" data-item="tissue" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="tissue-pink" data-item="tissue" data-who="pink" aria-label="粉方"></span><span class="item-label">纸巾+湿巾</span></div>
           <div class="checklist-item" data-item="umbrella"><span class="check-pair"><input type="checkbox" class="check-blue" id="umbrella-blue" data-item="umbrella" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="umbrella-pink" data-item="umbrella" data-who="pink" aria-label="粉方"></span><span class="item-label">折叠雨伞<span class="item-note">（9月仍有阵雨）</span></span></div>
           <div class="checklist-item" data-item="reusable-bag"><span class="check-pair"><input type="checkbox" class="check-blue" id="reusable-bag-blue" data-item="reusable-bag" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="reusable-bag-pink" data-item="reusable-bag" data-who="pink" aria-label="粉方"></span><span class="item-label">环保购物袋<span class="item-note">（装伴手礼）</span></span></div>
+          <div class="checklist-item" data-item="tide-tools"><span class="check-pair"><input type="checkbox" class="check-blue" id="tide-tools-blue" data-item="tide-tools" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="tide-tools-pink" data-item="tide-tools" data-who="pink" aria-label="粉方"></span><span class="item-label">赶海小桶+手套<span class="item-note">（D7 银滩66号）</span></span></div>
+          <div class="checklist-item" data-item="tide-app"><span class="check-pair"><input type="checkbox" class="check-blue" id="tide-app-blue" data-item="tide-app" data-who="blue" aria-label="蓝方"><input type="checkbox" class="check-pink" id="tide-app-pink" data-item="tide-app" data-who="pink" aria-label="粉方"></span><span class="item-label">潮汐表 App 已查<span class="item-note">（9/10–9/12 干潮）</span></span></div>
         </div>
 
       </div>
@@ -899,7 +891,7 @@
 
         <!-- 北海天气 -->
         <div class="weather-card beihai-weather">
-          <div class="weather-city">🌊 北海 · 银滩</div>
+          <div class="weather-city">🌊 北海 · 侨港</div>
           <div class="weather-dates">9月9日 - 9月13日 · 北海段</div>
           <div class="weather-main">
             <div class="weather-temp">27-33°C</div>
@@ -965,8 +957,10 @@
           <li><strong>防晒重于防雨：</strong>9月桂林进入旱季，降雨量骤降至50-80mm，但白天仍有35°C以上高温。防晒霜SPF50+和遮阳伞比雨伞更重要</li>
           <li><strong>错峰出行：</strong>户外景点安排在上午10点前和下午4点后，正午时段在酒店休息或逛室内展馆（银子岩洞内仅18-20°C）</li>
           <li><strong>龙脊温差大：</strong>梯田海拔较高，早晚温度可比市区低5-8°C，务必带薄外套。清晨看日出需穿长袖</li>
+          <li><strong>北海赶海：</strong>D7 清晨银滩 66 号赶海，出发前用「潮汐表精灵」查 9/10–9/12 干潮时刻；干潮不在 9/11 清晨时可对调 D6/D7。住侨港需 <strong>05:15 预约网约车</strong>（约 15–20 分钟到银滩）</li>
+          <li><strong>北海交通：</strong>D6 冠头岭建议租电驴（约 30 元/天，侨港→幸福湾电驴约 20–30 分钟）；D7 赶海去程建议打车，下午老街可电驴或打车</li>
           <li><strong>北海湿度高：</strong>9月北海仍处降雨集中期（4-9月占全年84%），随身携带折叠雨伞。海风大时注意防风</li>
-          <li><strong>约拍天气：</strong>9月光线偏硬，建议清晨或傍晚拍摄千里江山图，光线柔和且避开高温。若遇恶劣天气可联系改期</li>
+          <li><strong>约拍提醒：</strong>D1 晚上早睡备战，D2 凌晨 02:30 赴<strong>水雾印象旅拍</strong>（建议 01:45 出发）。清晨拍摄光线柔和，结束后上午补觉，下午再逛西街</li>
           <li><strong>穿衣建议：</strong>白天速干短袖+防晒衣，早晚薄外套，海滩泳衣+凉鞋，龙脊运动鞋+长裤防蚊</li>
         </ul>
       </div>
@@ -1030,9 +1024,9 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
           integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
           crossorigin=""></script>
-  <script src="assets/js/bg-media.js?v=20260817f"></script>
-  <script src="assets/js/main.js?v=20260817f"></script>
-  <script src="assets/js/food-shops.js?v=20260817f"></script>
+  <script src="assets/js/bg-media.js?v=20260822a"></script>
+  <script src="assets/js/main.js?v=20260822a"></script>
+  <script src="assets/js/food-shops.js?v=20260822a"></script>
 
   <!-- Floating Table of Contents -->
   <div class="floating-toc" id="floatingToc">
@@ -1049,7 +1043,7 @@
     </div>
   </div>
 
-  <script src="assets/js/toc.js?v=20260817f"></script>
+  <script src="assets/js/toc.js?v=20260822a"></script>
 
 </body>
 </html>

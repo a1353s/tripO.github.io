@@ -371,6 +371,27 @@ section {
   color: #a855f7;
   font-weight: 600;
 }
+.tag-hotel {
+  background: rgba(13, 148, 136, 0.08);
+  color: var(--accent);
+}
+.hotel-link {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px dashed currentColor;
+  font-weight: 600;
+  transition: color 0.15s, border-color 0.15s;
+}
+.hotel-link:hover {
+  color: var(--accent-light);
+  border-bottom-style: solid;
+}
+.schedule-detail .hotel-link {
+  color: var(--accent);
+}
+.tag-hotel .hotel-link {
+  color: inherit;
+}
 
 /* === Schedule Wrapper & Day Selector === */
 .schedule-wrapper {
